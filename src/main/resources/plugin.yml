@@ -1,0 +1,4 @@
+name: MapProtect
+version: '${project.version}'
+main: dev.corestone.mapprotect.MapProtect
+api-version: '1.19'
