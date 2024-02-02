@@ -41,8 +41,8 @@ public class ConfigurationsData {
         config.set(path, object);
         save();
     }
-    public Object get(String path){
-        return config.get(path);
+    public YamlConfiguration getConfig(){
+        return config;
     }
 
     public int getBlockPlaceTimer(){

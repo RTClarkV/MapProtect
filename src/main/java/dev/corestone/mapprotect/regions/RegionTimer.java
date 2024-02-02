@@ -11,9 +11,10 @@ public class RegionTimer {
         this.plugin = plugin;
         this.manager = regionManager;
         scheduler = plugin.getServer().getScheduler();
+        blockPlaceTimer();
     }
 
-    public void BlockPlaceTimer(){
+    public void blockPlaceTimer(){
         scheduler.runTaskTimer(plugin, ()->{
 
         },0L, 20L);
