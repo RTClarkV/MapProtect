@@ -10,6 +10,7 @@ public class RegionBox implements Listener {
 
     private MapProtect plugin;
     private RegionManager manager;
+    private BlockManager blockManager;
 
 
     private ArrayList<UUID> players = new ArrayList<>();
