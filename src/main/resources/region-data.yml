@@ -1,0 +1,9 @@
+default-profile:
+  block-break-timer: 30
+  breakable-blocks:
+    - "BEDROCK"
+  placeable-bocks:
+    - "OAK_LEAVES"
+regions:
+
+

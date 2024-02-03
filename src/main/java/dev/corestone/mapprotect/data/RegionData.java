@@ -2,27 +2,28 @@ package dev.corestone.mapprotect.data;
 
 import dev.corestone.mapprotect.MapProtect;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.util.BoundingBox;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 
 public class RegionData {
 
-    private MapProtect plugin;
+    private static MapProtect plugin;
 
-    private File file;
-    private YamlConfiguration config;
-    private ArrayList<String> regionList = new ArrayList<>();
+    private static File file;
+    private static YamlConfiguration config;
+    private static ArrayList<String> regionList = new ArrayList<>();
     public RegionData(MapProtect plugin){
         this.plugin = plugin;
         load();
     }
 
-    public void load(){
-        file = new File(plugin.getDataFolder(), "region-data.yaml");
+    public static void load(){
+        file = new File(plugin.getDataFolder(), "region-data.yml");
 
         config = new YamlConfiguration();
         config.options().parseComments(false);
@@ -33,15 +34,11 @@ public class RegionData {
             e.printStackTrace();
         }
 
-        for(String path : config.getConfigurationSection("warps").getKeys(false)){
 
-        }
         if(config.getConfigurationSection("regions") == null)return;
-        for(String name : config.getConfigurationSection("regions").getKeys(false)){
-            regionList.add(name);
-        }
+        regionList.addAll(config.getConfigurationSection("regions").getKeys(false));
     }
-    public void save(){
+    public static void save(){
         try {
             config.save(file);
         }catch (Exception e){
@@ -49,32 +46,59 @@ public class RegionData {
         }
     }
 
-    public void set(String path, Object value){
+    public static void set(String path, Object value){
         config.set(path, value);
         save();
     }
 
-    public YamlConfiguration getConfig(){
+    public static YamlConfiguration getConfig(){
         return config;
     }
 
-    public BoundingBox getRegion(String name){
+    public static BoundingBox getRegion(String name){
         Location loc1 = config.getLocation("regions."+name+".location-1");
         Location loc2 = config.getLocation("regions."+name+".location-1");
         return new BoundingBox(loc1.getX(), loc1.getY(), loc1.getZ(), loc2.getX(), loc2.getY(), loc2.getZ());
     }
-    public void addRegion(String name, Location loc1, Location loc2){
-        config.set("regions."+name+".location-1", loc1);
-        config.set("regions."+name+".location-1", loc1);
+    public static void addNewRegion(String name){
+        config.set("regions."+name+".breakable-blocks", config.getStringList("default.breakable-blocks"));
+        config.set("regions."+name+".placeable-blocks", config.getStringList("default.placeable-blocks"));
+        config.set("regions."+name+".block-break-timer", config.getInt("default.block-break-timer"));
         regionList.add(name);
     }
-    public void removeRegion(String name){
+    public static void removeRegion(String name){
         config.set("regions."+name, null);
         regionList.remove(name);
     }
-    public ArrayList<String> getRegionList(){
+    public static ArrayList<String> getRegionList(){
         return regionList;
     }
 
+    public static List<Material> getBreakableBlocks(String name){
+        List<String> somelist = new ArrayList<>();
+        List<Material> materials = new ArrayList<>();
+        somelist = config.getStringList("regions."+name+".breakable-blocks");
 
+        for (String type : somelist){
+            materials.add(Material.valueOf(type));
+        }
+
+        return materials;
+    }
+
+    public static List<Material> getPlaceableBlocks(String name){
+        List<String> somelist = new ArrayList<>();
+        List<Material> materials = new ArrayList<>();
+        somelist = config.getStringList("regions."+name+".placeable-blocks");
+
+        for (String type : somelist){
+            materials.add(Material.valueOf(type));
+        }
+
+        return materials;
+    }
+
+    public static int getBlockBreakTimer(String name){
+        return config.getInt("regions."+name+".block-break-timer");
+    }
 }

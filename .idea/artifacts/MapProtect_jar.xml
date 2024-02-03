@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="MapProtect:jar">
+    <output-path>$USER_HOME$/OneDrive/Desktop/1.19.3 server/plugins</output-path>
+    <root id="archive" name="MapProtect.jar">
+      <element id="module-output" name="MapProtect" />
+    </root>
+  </artifact>
+</component>

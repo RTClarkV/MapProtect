@@ -2,3 +2,12 @@ name: MapProtect
 version: '${project.version}'
 main: dev.corestone.mapprotect.MapProtect
 api-version: '1.19'
+commands:
+  mpwand:
+    usage: /<command>
+    permission:
+      mp.wand
+  mpcreate:
+    usage: /<command> <name>
+    permission:
+      mp.create
