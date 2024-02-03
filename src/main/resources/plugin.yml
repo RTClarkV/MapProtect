@@ -10,4 +10,16 @@ commands:
   mpcreate:
     usage: /<command> <name>
     permission:
-      mp.create
+      mp.admin
+  mpremovemap:
+    usage: /<command> <map>
+    permission:
+      mp.admin
+  mpmakedefault:
+    usage: /<command> <existing-profile> <name>
+    permission:
+      mp.admin
+  mpremovedefault:
+    usage: /<command> <name>
+    permission:
+      mp.admin

@@ -1,9 +1,13 @@
-default-profile:
-  block-break-timer: 30
-  breakable-blocks:
-    - "BEDROCK"
-  placeable-bocks:
-    - "OAK_LEAVES"
+default-profiles:
+  ##DO NOT delete Master Default.
+  master-default:
+    block-break-timer: 30
+    breakable-blocks:
+      - "BEDROCK"
+    placeable-bocks:
+      - "OAK_LEAVES"
+    unplaceable-blocks:
+      - "BEDROCK"
 regions:
 
 

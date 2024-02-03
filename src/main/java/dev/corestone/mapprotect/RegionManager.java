@@ -27,10 +27,10 @@ public class RegionManager {
         }
     }
 
-    public void newBox(String name, Location loc1, Location loc2){
+    public void newBox(String name, String defaultProfiel, Location loc1, Location loc2){
         if(LocationData.getRegionNames().contains(name))return;
         LocationData.addBox(name, loc1, loc2);
-        RegionData.addNewRegion(name);
+        RegionData.addNewRegion(name, defaultProfiel);
         regions.add(new RegionBox(plugin, this, name));
     }
     public void addBox(String name){

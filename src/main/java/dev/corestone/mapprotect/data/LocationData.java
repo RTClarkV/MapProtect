@@ -25,7 +25,6 @@ public class LocationData {
         if(!file.exists()){
             plugin.saveResource("location-data.yml", false);
         }
-
         config = new YamlConfiguration();
         config.options().parseComments(false);
 
@@ -55,8 +54,8 @@ public class LocationData {
     }
 
     public static void addBox(String name, Location loc1, Location loc2){
-        config.set("locations."+name+".loc1", loc1);
-        config.set("locations."+name+".loc2", loc2);
+        set("locations."+name+".loc1", loc1);
+        set("locations."+name+".loc2", loc2);
         regionNames.add(name);
     }
 
@@ -67,7 +66,7 @@ public class LocationData {
     }
 
     public static void removeBox(String name){
-        config.set("locations."+name, null);
+        set("locations."+name, null);
         regionNames.remove(name);
     }
     public static ArrayList<String> getRegionNames(){

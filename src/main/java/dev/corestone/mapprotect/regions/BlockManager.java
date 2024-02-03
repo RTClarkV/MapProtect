@@ -32,6 +32,10 @@ public class BlockManager implements Listener {
         this.placeableBlocks = RegionData.getPlaceableBlocks(regionBox.getName());
         this.blockBreakTimer = RegionData.getBlockBreakTimer(regionBox.getName());
         this.blockKey = new NamespacedKey(plugin, regionBox.getName()+"-key");
+
+        scheduler.runTaskTimer(plugin, ()->{
+
+        }, 0L, 20L );
     }
 
     @EventHandler
