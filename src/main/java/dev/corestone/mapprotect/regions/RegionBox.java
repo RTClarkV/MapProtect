@@ -2,7 +2,6 @@ package dev.corestone.mapprotect.regions;
 
 import dev.corestone.mapprotect.MapProtect;
 import dev.corestone.mapprotect.RegionManager;
-import dev.corestone.mapprotect.data.LocationData;
 import org.bukkit.event.Listener;
 import org.bukkit.util.BoundingBox;
 
@@ -15,7 +14,18 @@ public class RegionBox implements Listener, RegionInterface {
     private RegionManager manager;
     private BlockManager blockManager;
     private BoundingBox box;
+    private RegionState state;
+    private boolean blockBreakTimerActive;
+    private boolean playerPvp;
+    private boolean monsterSpawn;
+    private boolean creeperDamage;
 
+//    block-break-timer: 30
+//    block-break-timer-active: true
+//    player-pvp: true
+//    mob-spawn: true
+//    monster-spawn: true
+//    creeper-damage: false
 
     private ArrayList<UUID> players = new ArrayList<>();
 
@@ -27,7 +37,7 @@ public class RegionBox implements Listener, RegionInterface {
         this.manager = manager;
         this.blockManager = new BlockManager(plugin, this);
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
-        this.box = LocationData.getBox(name);
+        this.box = plugin.getLocationData().getBox(name);
     }
 
     @Override

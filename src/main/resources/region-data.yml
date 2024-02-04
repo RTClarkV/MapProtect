@@ -1,7 +1,13 @@
+version: 1.0
 default-profiles:
   ##DO NOT delete Master Default.
   master-default:
     block-break-timer: 30
+    block-break-timer-active: true
+    player-pvp: true
+    mob-spawn: true
+    monster-spawn: true
+    creeper-damage: false
     breakable-blocks:
       - "BEDROCK"
     placeable-bocks:

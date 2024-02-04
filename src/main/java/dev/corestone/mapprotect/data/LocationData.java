@@ -10,17 +10,17 @@ import java.util.ArrayList;
 
 public class LocationData {
 
-    private static MapProtect plugin;
-    private static File file;
-    private static YamlConfiguration config;
-    private static ArrayList<String> regionNames = new ArrayList<>();
+    private MapProtect plugin;
+    private File file;
+    private YamlConfiguration config;
+    private ArrayList<String> regionNames = new ArrayList<>();
 
     public LocationData(MapProtect plugin){
         this.plugin = plugin;
         load();
     }
 
-    public static void load(){
+    public void load(){
         file = new File(plugin.getDataFolder(), "location-data.yml");
         if(!file.exists()){
             plugin.saveResource("location-data.yml", false);
@@ -38,38 +38,38 @@ public class LocationData {
             regionNames.add(name);
         }
     }
-    public static void save(){
+    public void save(){
         try {
             config.save(file);
         }catch (Exception e){
             e.printStackTrace();
         }
     }
-    public static void set(String path, Object object){
+    public void set(String path, Object object){
         config.set(path, object);
         save();
     }
-    public static YamlConfiguration getConfig() {
+    public YamlConfiguration getConfig() {
         return config;
     }
 
-    public static void addBox(String name, Location loc1, Location loc2){
+    public void addBox(String name, Location loc1, Location loc2){
         set("locations."+name+".loc1", loc1);
         set("locations."+name+".loc2", loc2);
         regionNames.add(name);
     }
 
-    public static BoundingBox getBox(String name){
+    public BoundingBox getBox(String name){
         Location loc1 = config.getLocation("locations."+name+".loc1");
         Location loc2 = config.getLocation("locations."+name+".loc2");
         return new BoundingBox(loc1.getX(), loc1.getY(), loc1.getZ(), loc2.getX(), loc2.getY(), loc2.getZ());
     }
 
-    public static void removeBox(String name){
+    public void removeBox(String name){
         set("locations."+name, null);
         regionNames.remove(name);
     }
-    public static ArrayList<String> getRegionNames(){
+    public ArrayList<String> getRegionNames(){
         return regionNames;
     }
 

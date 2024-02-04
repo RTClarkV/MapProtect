@@ -1,7 +1,7 @@
 package dev.corestone.mapprotect.regions;
 
 import dev.corestone.mapprotect.MapProtect;
-import dev.corestone.mapprotect.data.RegionData;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
@@ -28,14 +28,11 @@ public class BlockManager implements Listener {
         this.regionBox = regionBox;
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         this.scheduler = plugin.getServer().getScheduler();
-        this.breakableBlocks = RegionData.getBreakableBlocks(regionBox.getName());
-        this.placeableBlocks = RegionData.getPlaceableBlocks(regionBox.getName());
-        this.blockBreakTimer = RegionData.getBlockBreakTimer(regionBox.getName());
+        this.breakableBlocks = plugin.getRegionData().getBreakableBlocks(regionBox.getName());
+        this.placeableBlocks = plugin.getRegionData().getPlaceableBlocks(regionBox.getName());
+        this.blockBreakTimer = plugin.getRegionData().getBlockBreakTimer(regionBox.getName());
         this.blockKey = new NamespacedKey(plugin, regionBox.getName()+"-key");
 
-        scheduler.runTaskTimer(plugin, ()->{
-
-        }, 0L, 20L );
     }
 
     @EventHandler
@@ -49,8 +46,6 @@ public class BlockManager implements Listener {
     @EventHandler
     public void onPlace(BlockPlaceEvent e){
         if(!regionBox.getBox().contains(e.getBlock().getLocation().toVector()))return;
-
-
     }
 
     public void removeAllBlocks(){

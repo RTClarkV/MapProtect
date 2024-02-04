@@ -17,9 +17,17 @@ commands:
       mp.admin
   mpmakedefault:
     usage: /<command> <existing-profile> <name>
+    aliases:
+      - mpcoppydefault
     permission:
       mp.admin
   mpremovedefault:
     usage: /<command> <name>
     permission:
       mp.admin
+  mplist:
+    usage: /<command>
+    permission: mp.admin
+  mphelp:
+    usage: /<command>
+    permission: mp.admin

@@ -1,11 +1,8 @@
-package dev.corestone.mapprotect.regions;
+package dev.corestone.mapprotect.commands;
 
 import dev.corestone.mapprotect.MapProtect;
 import dev.corestone.mapprotect.RegionManager;
-import dev.corestone.mapprotect.data.LocationData;
-import dev.corestone.mapprotect.data.RegionData;
 import dev.corestone.mapprotect.utilities.Colorize;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -23,7 +20,6 @@ import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.swing.*;
 import java.util.*;
 
 public class WandManager implements Listener, CommandExecutor, TabExecutor {
@@ -111,20 +107,20 @@ public class WandManager implements Listener, CommandExecutor, TabExecutor {
                 player.sendMessage(Colorize.format("&cPlease enter all the locations. It's like world edit, you can do it :)"));
                 return true;
             }
-            if(LocationData.getRegionNames().contains(regionName)){
+            if(plugin.getLocationData().getRegionNames().contains(regionName)){
                 player.sendMessage(Colorize.format("&cA region with the name &b"+regionName+" &calready exists."));
                 return true;
             }
             player.sendMessage(Colorize.format("&bCreating a protection zone for " + regionName));
-            manager.newBox(regionName,defaultProfile, leftClickStash.get(player.getUniqueId()), rightClickStash.get(player.getUniqueId()));
+            manager.createNewRegion(regionName,defaultProfile, leftClickStash.get(player.getUniqueId()), rightClickStash.get(player.getUniqueId()));
         }
         return true;
     }
 
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if(args.length == 1 && command.getName().equalsIgnoreCase("mpcreate")){
-            return RegionData.getDefaultProfileList();
+        if(args.length == 2 && command.getName().equalsIgnoreCase("mpcreate")){
+            return plugin.getRegionData().getDefaultProfileList();
         }
         return new ArrayList<>();
     }
