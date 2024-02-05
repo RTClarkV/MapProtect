@@ -8,8 +8,9 @@ import java.util.UUID;
 public interface RegionInterface {
 
 
-    public ArrayList<UUID> getPlayers();
-    void clearBlocks();
+    void shutDown();
+    RegionState getState();
+    void setState(RegionState state);
     String getName();
     BoundingBox getBox();
 }

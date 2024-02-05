@@ -1,6 +1,7 @@
-package dev.corestone.mapprotect.regions;
+package dev.corestone.mapprotect.regions.regionmanagers;
 
 import dev.corestone.mapprotect.MapProtect;
+import dev.corestone.mapprotect.regions.RegionBox;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;

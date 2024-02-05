@@ -108,11 +108,11 @@ public class WandManager implements Listener, CommandExecutor, TabExecutor {
                 return true;
             }
             if(plugin.getLocationData().getRegionNames().contains(regionName)){
-                player.sendMessage(Colorize.format("&cA region with the name &b"+regionName+" &calready exists."));
+                player.sendMessage(Colorize.format("&cA region with the name &3"+regionName+" &calready exists."));
                 return true;
             }
-            player.sendMessage(Colorize.format("&bCreating a protection zone for " + regionName));
-            manager.createNewRegion(regionName,defaultProfile, leftClickStash.get(player.getUniqueId()), rightClickStash.get(player.getUniqueId()));
+            player.sendMessage(Colorize.format("&3Creating a protection zone for &3&l" + regionName));
+            manager.createNewRegion(regionName, defaultProfile, leftClickStash.get(player.getUniqueId()), rightClickStash.get(player.getUniqueId()));
         }
         return true;
     }
@@ -120,7 +120,7 @@ public class WandManager implements Listener, CommandExecutor, TabExecutor {
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(args.length == 2 && command.getName().equalsIgnoreCase("mpcreate")){
-            return plugin.getRegionData().getDefaultProfileList();
+            //return plugin.getDefaultData().get();
         }
         return new ArrayList<>();
     }
