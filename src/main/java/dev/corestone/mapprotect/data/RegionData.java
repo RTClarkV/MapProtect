@@ -8,6 +8,7 @@ import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.util.BoundingBox;
 
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,9 +39,9 @@ public class RegionData implements DataFile {
     }
 
     @Override
-    public void update() {
-
+    public void update(YamlConfiguration internalConfig){
     }
+
 
 //    public void load(){
 //        file = new File(plugin.getDataFolder(), "region-data.yml");

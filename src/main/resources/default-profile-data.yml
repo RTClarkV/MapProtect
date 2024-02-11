@@ -9,52 +9,43 @@ version: 1.4-IN-DEV
   ##================================================================================
   ##                                Map State
   ##--------------------------------------------------------------------------------
-  ## map-state can be in 5 states: ACTIVE, IDLE, LOCKED, CLOSED, or JAILED.
+  ## map-state can be in 5 states: ACTIVE, IDLE or LOCKED.
   ## You can change the state in game with: /mpstate <map_name> <state>
   ## You can check the state of a map with: /mpstate <map_name>
   ## ACTIVE state: the map will run as usual with the given parameters.
   ## IDLE state: the map will do nothing as if it was not there, so careful using this state.
   ## LOCKED state: sets the area as if everything was false. Good for preventing further damage to an area quickly.
-  ## CLOSED state: prevents players from entering the map or any outside interference. Useful for maintenance.
-  ## JAILED state: prevents players from exiting the map. Players can still be teleported in or out.
   ##--------------------------------------------------------------------------------
   ##
 master-default:
   map-state: ACTIVE
-    ##
-    ## block-break-timer deletes blocks after the set amount of seconds.
-    ## block-break-timer-active will deactivate block-break-timer when set to false.
-    ## block-break-timer-ignore is a list of blocks that will be ignored by block-break-timer.
-  block-break-timer: 30
-  block-break-timer-active: true
-  block-break-timer-ignore:
-    - "DIAMOND_BLOCK"
-    - "NETHERITE_BLOCK"
-    ##
-    ## Block placement set to false will prevent players from placing blocks.
-  player-block-place: false
-    ##
-    ## player-pvp enables PvP when set to True.
-  player-pvp: true
-    ##
-    ## player-interact will prevent players from interacting when set to true.
-  player-interact: true
-  mob-spawn: true
-  monster-spawn: true
-  explosion-damage: false
-  some-test-thing4: false
-  baseball: false
-  unspawnable-mobs:
-    - "ENDER_DRAGON"
-    - "WITHER"
-  breakable-blocks:
-    - "BEDROCK"
-    - "END_PORTAL_FRAME"
-  placeable-bocks:
-    - "OAK_LEAVES"
-  unplaceable-blocks:
-    - "BEDROCK"
-
-  ##some comment
-  thing2: true
+  player-managers:
+    player-pvp: false
+    player-interact: true
+    explosion-damage: false
+    player-entry: true
+    player-exit: true
+  block-managers:
+    block-break: false
+    block-place: false
+    block-break-timer: 30
+    block-break-timer-active: true
+    block-break-timer-inverse: false
+    block-break-timer-ignore:
+      - "DIAMOND_BLOCK"
+      - "NETHERITE_BLOCK"
+    breakable-block-inverse: false
+    breakable-blocks:
+      - "BEDROCK"
+      - "END_PORTAL_FRAME"
+    inverse-unplaceable-blocks: false
+    unplaceable-blocks:
+      - "BEDROCK"
+  mob-managers:
+    mob-spawn: true
+    inverse-unspawnable-mobs: false
+    unspawnable-mobs:
+      - "ENDER_DRAGON"
+      - "WITHER"
 default-profiles:
+

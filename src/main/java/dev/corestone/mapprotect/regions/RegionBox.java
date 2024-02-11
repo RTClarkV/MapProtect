@@ -7,8 +7,6 @@ import dev.corestone.mapprotect.utilities.DataBook;
 import org.bukkit.event.Listener;
 import org.bukkit.util.BoundingBox;
 
-import java.util.ArrayList;
-import java.util.UUID;
 
 public class RegionBox implements Listener, RegionInterface {
 

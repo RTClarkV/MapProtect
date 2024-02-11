@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class DataBook {
     //version
-    public static final String version = "1.3-IN-DEV";
+    public static final String version = "1.1.5-IN-DEV";
 
     //get String path
     public static String getRegionDataPath(String regionName, String path){

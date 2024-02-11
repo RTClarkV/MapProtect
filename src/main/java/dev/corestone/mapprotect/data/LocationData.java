@@ -7,6 +7,7 @@ import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.util.BoundingBox;
 
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class LocationData implements DataFile {
@@ -35,9 +36,9 @@ public class LocationData implements DataFile {
     }
 
     @Override
-    public void update() {
-
+    public void update(YamlConfiguration internalConfig){
     }
+
 
 //    public void load(){
 //        file = new File(plugin.getDataFolder(), "location-data.yml");

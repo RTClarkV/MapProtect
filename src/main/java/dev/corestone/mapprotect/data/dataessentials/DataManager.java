@@ -14,11 +14,17 @@ public class DataManager {
     private MapProtect plugin;
     DataFile manager;
     private String fileName;
+    private InputStreamReader internalConfigFileStream;
+    private YamlConfiguration internalYamlConfig;
 
     public DataManager(MapProtect pluign, DataFile manager, String fileName){
         this.plugin = pluign;
         this.manager = manager;
         this.fileName = fileName;
+
+        this.internalConfigFileStream = new InputStreamReader(plugin.getResource(fileName), StandardCharsets.UTF_8);
+        this.internalYamlConfig = YamlConfiguration.loadConfiguration(internalConfigFileStream);
+
         load();
     }
     private void load(){
@@ -36,9 +42,9 @@ public class DataManager {
         }catch (Exception e){
             e.printStackTrace();
         }
-        if(file.exists()){
-            update();
-        }
+//        if(file.exists()){
+//            update();
+//        }
     }
     public void update(){
 
@@ -47,23 +53,27 @@ public class DataManager {
 
         for(String path : internalYamlConfig.getKeys(false)){
             if(path.equals("version")){
-                set(path, internalYamlConfig.get(path));
+                set(path, DataBook.version);
             }
             if(path.equals("master-default")){
-                for(String externalPath : config.getConfigurationSection("master-default").getKeys(true)){
-                    if(!internalYamlConfig.getConfigurationSection("master-default").contains(externalPath)){
-                        remove("master-default."+externalPath);
-                    }
-                }
-                for(String internalPath : internalYamlConfig.getConfigurationSection("master-default").getKeys(true)){
-                    if(!config.getConfigurationSection("master-default").contains(internalPath)){
-                        set("master-default."+internalPath, internalYamlConfig.get("master-default."+internalPath));
-                    }
-                }
+//                for(String externalPath : config.getConfigurationSection("master-default").getKeys(true)){
+//                    if(!internalYamlConfig.getConfigurationSection("master-default").contains(externalPath)){
+//                        remove("master-default."+externalPath);
+//                    }
+//                }
+//                for(String internalPath : internalYamlConfig.getConfigurationSection("master-default").getKeys(true)){
+//                    if(!config.getConfigurationSection("master-default").contains(internalPath)){
+//                        set("master-default."+internalPath, internalYamlConfig.get("master-default."+internalPath));
+//                    }
+//                }
+                //updateMasterDefault(internalConfigFileStream, internalYamlConfig);
 
             }
         }
-        save();
+        //save();
+    }
+    public YamlConfiguration getInternalConfig(){
+        return internalYamlConfig;
     }
     public void save(){
         try {

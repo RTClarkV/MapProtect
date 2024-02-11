@@ -4,8 +4,8 @@ import dev.corestone.mapprotect.MapProtect;
 import dev.corestone.mapprotect.data.dataessentials.DataFile;
 import dev.corestone.mapprotect.data.dataessentials.DataManager;
 
+import dev.corestone.mapprotect.utilities.DataBook;
 import org.bukkit.configuration.file.YamlConfiguration;
-
 
 
 
@@ -17,20 +17,17 @@ public class DefaultData implements DataFile {
         this.plugin = plugin;
         this.data = new DataManager(plugin,this, "default-profile-data.yml");
         //update();
+        update(data.getInternalConfig());
     }
 
     @Override
-    public void update(){
+    public void update(YamlConfiguration internalConfig){
 
-//        for(String path : data.getConfig().getConfigurationSection(DataBook.defaultKey).getKeys(false)){
-//            for(String defaultPath : data.getConfig().getConfigurationSection(DataBook.defaultKey+".master-default").getKeys(false)){
-//                String replacePath = defaultPath;
-//                defaultPath = DataBook.defaultKey+DataBook.dot+defaultPath;
-//                if(!data.getConfig().getConfigurationSection(DataBook.defaultKey+"."+path).contains(replacePath)){
-//                    data.set(DataBook.defaultKey+"."+path, defaultPath);
-//                }
-//            }
-//        }
+        for(String path : internalConfig.getKeys(false)){
+            if(path.equals("version")){
+                set(path, DataBook.version);
+            }
+        }
 
     }
 
