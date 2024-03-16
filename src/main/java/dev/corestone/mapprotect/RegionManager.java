@@ -16,8 +16,9 @@ public class RegionManager {
 
     public RegionManager(MapProtect plugin){
         this.plugin = plugin;
-        loadRegions();
+        //loadRegions();
         this.wandManager = new WandManager(plugin, this);
+        //HandlerList.unregisterAll(wandManager);
     }
 
     public void loadRegions(){
@@ -27,10 +28,12 @@ public class RegionManager {
     }
 
     public void createNewRegion(String name, String defaultProfile, Location loc1, Location loc2){
-        if(plugin.getRegionData().getRegionList().contains(name))return;
+        plugin.getRegionData().addRegion(name, defaultProfile);
         plugin.getLocationData().addBox(name, loc1, loc2);
-        //plugin.getRegionData().addNewRegion(name, defaultProfile);
         regions.add(new RegionBox(plugin, this, name));
+    }
+    public void createNewDefaultProfile(String name, String existingProfile){
+
     }
     public void addRegion(String name){
         regions.add(new RegionBox(plugin, this, name));

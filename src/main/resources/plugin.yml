@@ -15,14 +15,22 @@ commands:
     usage: /<command> <map>
     permission:
       mp.admin
-  mpmakedefault:
+  mpdeletemap:
+    usage: /<command> <map>
+    permission:
+      mp.admin
+  mpcreatedefault:
     usage: /<command> <existing-profile> <name>
     aliases:
-      - mpcoppydefault
+      - mpmakedefault
     permission:
       mp.admin
   mpremovedefault:
     usage: /<command> <name>
+    permission:
+      mp.admin
+  mpdeletedefault:
+    usage: /<command> <map>
     permission:
       mp.admin
   mplist:

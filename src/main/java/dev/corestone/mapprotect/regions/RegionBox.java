@@ -2,7 +2,6 @@ package dev.corestone.mapprotect.regions;
 
 import dev.corestone.mapprotect.MapProtect;
 import dev.corestone.mapprotect.RegionManager;
-import dev.corestone.mapprotect.regions.regionmanagers.BlockManager;
 import dev.corestone.mapprotect.utilities.DataBook;
 import org.bukkit.event.Listener;
 import org.bukkit.util.BoundingBox;
@@ -12,7 +11,6 @@ public class RegionBox implements Listener, RegionInterface {
 
     private MapProtect plugin;
     private RegionManager manager;
-    private BlockManager blockManager;
     private BoundingBox box;
     private RegionState state;
 
@@ -25,12 +23,11 @@ public class RegionBox implements Listener, RegionInterface {
         this.manager = manager;
 
         //create managers
-        this.blockManager = new BlockManager(plugin, this);
 
         //other logic
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         this.box = plugin.getLocationData().getBox(name);
-        state = RegionState.valueOf(DataBook.getRegionDataPath(name, "state"));
+        //state = RegionState.valueOf(DataBook.getRegionDataPath(name, "state"));
     }
     @Override
     public void setState(RegionState state) {

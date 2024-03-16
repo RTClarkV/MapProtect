@@ -3,6 +3,7 @@ package dev.corestone.mapprotect.commands;
 import dev.corestone.mapprotect.MapProtect;
 import dev.corestone.mapprotect.RegionManager;
 import dev.corestone.mapprotect.utilities.Colorize;
+import dev.corestone.mapprotect.utilities.PlayerMessage;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -14,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
@@ -66,6 +68,7 @@ public class WandManager implements Listener, CommandExecutor, TabExecutor {
     @EventHandler
     public void onRightCLick(PlayerInteractEvent e){
         if(!e.getAction().isRightClick())return;
+        if(!e.getHand().equals(EquipmentSlot.OFF_HAND))return;
         if(e.getClickedBlock() == null)return;
         if(!e.getPlayer().hasPermission("mp.wand"))return;
         if(e.getPlayer().getInventory().getItemInMainHand().getItemMeta() == null)return;
@@ -95,7 +98,7 @@ public class WandManager implements Listener, CommandExecutor, TabExecutor {
             }
             if(list.isEmpty()){
                 player.sendMessage(Colorize.format("&cPlease give the region a name."));
-                player.sendMessage(Colorize.format("&cCommand usage: /mpcreate <name>"));
+                player.sendMessage(Colorize.format(PlayerMessage.mpCreateCmdUsage));
                 return true;
             }
             String regionName = args[0];
@@ -120,7 +123,7 @@ public class WandManager implements Listener, CommandExecutor, TabExecutor {
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(args.length == 2 && command.getName().equalsIgnoreCase("mpcreate")){
-            //return plugin.getDefaultData().get();
+            return plugin.getDefaultData().getDefaultList();
         }
         return new ArrayList<>();
     }

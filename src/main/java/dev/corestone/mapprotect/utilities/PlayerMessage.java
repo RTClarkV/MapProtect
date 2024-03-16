@@ -10,6 +10,7 @@ public class PlayerMessage {
     public static final String mpWandUsage = "&3/mpwand";
     public static final String mpCreateCmdUsage = "&3/mpcreate <name> <default-profile>";
     public static final String mpRemoveMapUsage = "&3/mpremove <name>";
-    public static final String mpMakeDefault = "&3/mpmakedefault <default_name> <existing_map_profile>";
+    public static final String mpCreateDefault = "&3/mpcreatedefault <default_name> <existing_map_profile>";
     public static final String mpRemoveDefault = "&3/mpremovedefault <default_name>";
+
 }

@@ -1,11 +1,13 @@
 package dev.corestone.mapprotect;
 
+import dev.corestone.mapprotect.commands.CreateNewDefaultCommand;
 import dev.corestone.mapprotect.commands.HelpCommand;
 import dev.corestone.mapprotect.commands.MapListCommand;
 import dev.corestone.mapprotect.commands.MapManageCommand;
 import dev.corestone.mapprotect.data.DefaultData;
 import dev.corestone.mapprotect.data.LocationData;
 import dev.corestone.mapprotect.data.RegionData;
+import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class MapProtect extends JavaPlugin {
@@ -13,20 +15,28 @@ public final class MapProtect extends JavaPlugin {
     private RegionData regionData;
     private DefaultData defaultData;
     private RegionManager manager;
+
+    //commands
     private HelpCommand helpCommand;
     private MapListCommand mapListCommand;
     private MapManageCommand mapManageCommand;
+    private CreateNewDefaultCommand createNewDefaultCommand;
     @Override
     public void onEnable() {
         // Plugin startup logic
 //        new RegionManager(this);
         this.locationData = new LocationData(this);
-        this.regionData = new RegionData(this);
         this.defaultData = new DefaultData(this);
+        this.regionData = new RegionData(this);
+
+        //commands
         this.helpCommand = new HelpCommand(this);
         this.mapListCommand = new MapListCommand(this);
         this.mapManageCommand = new MapManageCommand(this);
+        this.createNewDefaultCommand = new CreateNewDefaultCommand(this);
 
+
+        //manager
         this.manager = new RegionManager(this);
     }
 

@@ -18,34 +18,70 @@ version: 1.4-IN-DEV
   ##--------------------------------------------------------------------------------
   ##
 master-default:
-  map-state: ACTIVE
+  map-master:
+    map-state: ACTIVE
   player-managers:
     player-pvp: false
     player-interact: true
-    explosion-damage: false
     player-entry: true
     player-exit: true
+    player-fall-damage: false
+    # Sound types can be found at: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html
+    entry-sound:
+      ENTITY_PLAYER_LEVELUP:
+        volume: 3
+        pitch: 1
+    exit-sound:
+      ENTITY_PLAYER_LEVELUP:
+        volume: 3
+        pitch: 1
+    # Potion Effect types can be found at: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/potion/PotionEffectType.html#ABSORPTION
+    potion-effects:
+      LUCK: 1
+    # Item types can also be found at: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
+    unusable-items:
+      - "AXE"
   block-managers:
+    # Block types can be found at: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
+    # If block-break is false and block-place is true, players will only be able to break blocks placed by other players.
+    # Players with the mp.admin permission's block placement will not be tracked, meaning normal players cannot break them.
     block-break: false
-    block-place: false
-    block-break-timer: 30
-    block-break-timer-active: true
-    block-break-timer-inverse: false
-    block-break-timer-ignore:
-      - "DIAMOND_BLOCK"
-      - "NETHERITE_BLOCK"
-    breakable-block-inverse: false
+    # inverse-breakable-block sets the list of breakable blocks to unbreakable blocks.
+    inverse-breakable-block: false
     breakable-blocks:
       - "BEDROCK"
       - "END_PORTAL_FRAME"
+    block-place: false
+    # inverse-unplaceable-blocks sets the list of unplaceable blocks to placeable blocks.
     inverse-unplaceable-blocks: false
     unplaceable-blocks:
       - "BEDROCK"
+    explosion-damage: false
+    block-burn: false
+    water-lava-flow-inside: true
+    ## prevents water and lava from flowing from the outside to the inside.
+    water-lava-flow-from-outside: false
+    # Block break timer allows players to place blocks, but removes blocks after the set amount of seconds.
+    block-break-timer: 30
+    # drop-block-item will drop the block item after block-break-timer brakes it when set to true.
+    drop-block-item: false
+    test: false
+    block-break-timer-active: false
+    # block-break-timer-ignore are blocks that will be ignored by the block break timer.
+    # inverse-block-break-timer-ignore will set the list of blocks to ignore
+    # to only blocks the timer will break.
+    inverse-block-break-timer-ignore: false
+    block-break-timer-ignore:
+      - "DIAMOND_BLOCK"
+      - "NETHERITE_BLOCK"
   mob-managers:
     mob-spawn: true
+    mob-damage: false
+    # inverse-unspawnable-mobs will set the list of unspawnable mobs to spawnable mobs.
     inverse-unspawnable-mobs: false
     unspawnable-mobs:
       - "ENDER_DRAGON"
       - "WITHER"
+    GoodGame: false
 default-profiles:
 

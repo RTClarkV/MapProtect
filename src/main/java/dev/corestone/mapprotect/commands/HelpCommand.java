@@ -3,7 +3,6 @@ package dev.corestone.mapprotect.commands;
 import dev.corestone.mapprotect.MapProtect;
 import dev.corestone.mapprotect.utilities.Colorize;
 import dev.corestone.mapprotect.utilities.PlayerMessage;
-import org.bukkit.Color;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -27,7 +26,7 @@ public class HelpCommand implements CommandExecutor {
         player.sendMessage(Colorize.format(PlayerMessage.mpWandUsage));
         player.sendMessage(Colorize.format(PlayerMessage.mpCreateCmdUsage));
         player.sendMessage(Colorize.format(PlayerMessage.mpRemoveMapUsage));
-        player.sendMessage(Colorize.format(PlayerMessage.mpMakeDefault));
+        player.sendMessage(Colorize.format(PlayerMessage.mpCreateDefault));
         player.sendMessage(Colorize.format(PlayerMessage.mpRemoveDefault));
 
         return true;
