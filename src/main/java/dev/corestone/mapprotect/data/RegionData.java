@@ -24,6 +24,7 @@ public class RegionData implements DataFile {
     }
 
     public void loadRegions(){
+        if(data.getConfig().getConfigurationSection("regions") == null)return;
         for(String name : data.getConfig().getConfigurationSection("regions").getKeys(false)){
             regionList.add(name);
         }
@@ -48,6 +49,7 @@ public class RegionData implements DataFile {
 
         set("version", internalConfig.get("version"));
         if(data.getConfig().getConfigurationSection("regions") == null)return;
+
         for(String path : plugin.getDefaultData().getConfig().getConfigurationSection("master-default").getKeys(true)){
             for(String regionName : data.getConfig().getConfigurationSection("regions").getKeys(false)){
                 if(!data.getConfig().contains("regions."+regionName+"."+path)){

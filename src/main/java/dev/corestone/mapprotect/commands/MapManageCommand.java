@@ -33,8 +33,10 @@ public class MapManageCommand implements CommandExecutor, TabCompleter {
         }
         if(argsList.isEmpty()){
             player.sendMessage(Colorize.format(PlayerMessage.noArgs));
+            return true;
         }
         String regionToRemove = args[0];
+        player.sendMessage(Colorize.format("&3Removing map &b&l"+regionToRemove));
         plugin.getRegionData().removeRegion(regionToRemove);
         return true;
     }

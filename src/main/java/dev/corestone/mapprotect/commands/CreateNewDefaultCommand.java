@@ -34,6 +34,7 @@ public class CreateNewDefaultCommand implements CommandExecutor, TabCompleter {
         }
         if(argsList.isEmpty()){
             sender.sendMessage(Colorize.format(PlayerMessage.noArgs));
+            return true;
         }
         String defaultName = args[0];
         String existingProfile = args[1];
@@ -50,6 +51,7 @@ public class CreateNewDefaultCommand implements CommandExecutor, TabCompleter {
         }
         plugin.getDefaultData().createNewDefaultProfile(defaultName, existingProfile);
         sender.sendMessage(Colorize.format("&3Creating new default &l&b" + defaultName + "&3 from profile &l&b" + existingProfile));
+        plugin.getDefaultData().getDefaultList().add(defaultName);
         return true;
     }
 

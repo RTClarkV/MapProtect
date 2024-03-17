@@ -16,7 +16,7 @@ public class RegionManager {
 
     public RegionManager(MapProtect plugin){
         this.plugin = plugin;
-        //loadRegions();
+        loadRegions();
         this.wandManager = new WandManager(plugin, this);
         //HandlerList.unregisterAll(wandManager);
     }

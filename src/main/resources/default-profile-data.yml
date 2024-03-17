@@ -82,6 +82,6 @@ master-default:
     unspawnable-mobs:
       - "ENDER_DRAGON"
       - "WITHER"
-    GoodGame: false
+    AMOGUS: false
 default-profiles:
 

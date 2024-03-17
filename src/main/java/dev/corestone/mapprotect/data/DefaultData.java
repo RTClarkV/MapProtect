@@ -50,6 +50,7 @@ public class DefaultData implements DataFile {
                             data.remove(dirPath);}}}
             }
         }
+        if(data.getConfig().getConfigurationSection("default-profiles") == null)return;
         for(String path : data.getConfig().getConfigurationSection("master-default").getKeys(true)){
             for(String defaultName : data.getConfig().getConfigurationSection("default-profiles").getKeys(false)){
                 if(!data.getConfig().contains("default-profiles."+defaultName+"."+path)){
