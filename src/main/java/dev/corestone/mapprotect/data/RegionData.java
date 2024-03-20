@@ -94,4 +94,14 @@ public class RegionData implements DataFile {
         regionList.add(name);
     }
 
+    public Object getBlockData(String regionName, String dataPiece){
+        return getConfig().get("regions."+regionName+".block-managers."+dataPiece);
+    }
+    public Object getPlayerData(String regionName, String dataPiece){
+        return getConfig().get("regions."+regionName+".player-managers."+dataPiece);
+    }
+    public Object getMobData(String regionName, String dataPiece){
+        return getConfig().get("regions."+regionName+".mob-managers."+dataPiece);
+    }
+
 }

@@ -15,10 +15,8 @@ commands:
     usage: /<command> <map>
     permission:
       mp.admin
-  mpdeletemap:
-    usage: /<command> <map>
-    permission:
-      mp.admin
+    aliases:
+      - mpdeletemap
   mpcreatedefault:
     usage: /<command> <existing-profile> <name>
     aliases:
@@ -29,6 +27,8 @@ commands:
     usage: /<command> <name>
     permission:
       mp.admin
+    aliases:
+      - mpdeletedefault
   mpdeletedefault:
     usage: /<command> <map>
     permission:
@@ -37,5 +37,8 @@ commands:
     usage: /<command>
     permission: mp.admin
   mphelp:
+    usage: /<command>
+    permission: mp.admin
+  mpreload:
     usage: /<command>
     permission: mp.admin

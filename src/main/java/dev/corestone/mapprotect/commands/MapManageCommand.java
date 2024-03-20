@@ -19,9 +19,9 @@ public class MapManageCommand implements CommandExecutor, TabCompleter {
 
     public MapManageCommand(MapProtect plugin){
         this.plugin = plugin;
-        this.plugin.getCommand("mpremovemap").setExecutor(this);
-
-        this.plugin.getCommand("mpremovemap").setTabCompleter(this);
+//        this.plugin.getCommand("mpremovemap").setExecutor(this);
+//
+//        this.plugin.getCommand("mpremovemap").setTabCompleter(this);
     }
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -35,9 +35,9 @@ public class MapManageCommand implements CommandExecutor, TabCompleter {
             player.sendMessage(Colorize.format(PlayerMessage.noArgs));
             return true;
         }
-        String regionToRemove = args[0];
-        player.sendMessage(Colorize.format("&3Removing map &b&l"+regionToRemove));
-        plugin.getRegionData().removeRegion(regionToRemove);
+//        String regionToRemove = args[0];
+//        player.sendMessage(Colorize.format("&3Removing map &b&l"+regionToRemove));
+//        plugin.getRegionData().removeRegion(regionToRemove);
         return true;
     }
 

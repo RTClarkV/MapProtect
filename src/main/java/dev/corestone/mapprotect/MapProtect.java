@@ -1,9 +1,6 @@
 package dev.corestone.mapprotect;
 
-import dev.corestone.mapprotect.commands.CreateNewDefaultCommand;
-import dev.corestone.mapprotect.commands.HelpCommand;
-import dev.corestone.mapprotect.commands.MapListCommand;
-import dev.corestone.mapprotect.commands.MapManageCommand;
+import dev.corestone.mapprotect.commands.*;
 import dev.corestone.mapprotect.data.DefaultData;
 import dev.corestone.mapprotect.data.LocationData;
 import dev.corestone.mapprotect.data.RegionData;
@@ -20,6 +17,8 @@ public final class MapProtect extends JavaPlugin {
     private MapListCommand mapListCommand;
     private MapManageCommand mapManageCommand;
     private CreateNewDefaultCommand createNewDefaultCommand;
+    private MapDeleteCommand mapDeleteCommand;
+    private ReloadCommand reloadCommand;
     @Override
     public void onEnable() {
         // Plugin startup logic
@@ -32,7 +31,7 @@ public final class MapProtect extends JavaPlugin {
         this.mapListCommand = new MapListCommand(this);
         this.mapManageCommand = new MapManageCommand(this);
         this.createNewDefaultCommand = new CreateNewDefaultCommand(this);
-
+        this.reloadCommand = new ReloadCommand(this);
 
         //manager
         this.manager = new RegionManager(this);
@@ -42,10 +41,20 @@ public final class MapProtect extends JavaPlugin {
     public void onDisable() {
         // Plugin shutdown logic
         manager.shutDown();
+
+        locationData = null;
+        defaultData = null;
+        regionData = null;
+        manager = null;
+
     }
 
     public void reloadPlugin(){
-
+        manager.shutDown();
+        this.locationData = new LocationData(this);
+        this.defaultData = new DefaultData(this);
+        this.regionData = new RegionData(this);
+        manager.startUp();
     }
 
     public RegionData getRegionData(){

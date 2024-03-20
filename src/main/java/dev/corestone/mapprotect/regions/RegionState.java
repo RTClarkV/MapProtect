@@ -4,8 +4,7 @@ public enum RegionState {
     ACTIVE,
     IDLE,
     LOCKED,
-    CLOSED,
-    JAILED;
+    DELETED;
 
 
 

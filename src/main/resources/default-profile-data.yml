@@ -14,7 +14,14 @@ version: 1.4-IN-DEV
   ## You can check the state of a map with: /mpstate <map_name>
   ## ACTIVE state: the map will run as usual with the given parameters.
   ## IDLE state: the map will do nothing as if it was not there, so careful using this state.
-  ## LOCKED state: sets the area as if everything was false. Good for preventing further damage to an area quickly.
+  ## LOCKED state: Does not allow any player interactions, player entry, or block damage. Good for preventing further damage to an area quickly.
+  ##
+  # Block types can be found at: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
+  # Sound types can be found at: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html
+  # Item types can also be found at: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
+  # Potion Effect types can be found at: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/potion/PotionEffectType.html#ABSORPTION
+
+  ##
   ##--------------------------------------------------------------------------------
   ##
 master-default:
@@ -25,8 +32,7 @@ master-default:
     player-interact: true
     player-entry: true
     player-exit: true
-    player-fall-damage: false
-    # Sound types can be found at: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html
+    player-fall-damage: true
     entry-sound:
       ENTITY_PLAYER_LEVELUP:
         volume: 3
@@ -35,16 +41,15 @@ master-default:
       ENTITY_PLAYER_LEVELUP:
         volume: 3
         pitch: 1
-    # Potion Effect types can be found at: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/potion/PotionEffectType.html#ABSORPTION
     potion-effects:
       LUCK: 1
-    # Item types can also be found at: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
     unusable-items:
-      - "AXE"
+      - "ENDER_PEARL"
+      - "LAVA_BUCKET"
   block-managers:
-    # Block types can be found at: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
     # If block-break is false and block-place is true, players will only be able to break blocks placed by other players.
     # Players with the mp.admin permission's block placement will not be tracked, meaning normal players cannot break them.
+    # TODO: make mp.build with a /build command.
     block-break: false
     # inverse-breakable-block sets the list of breakable blocks to unbreakable blocks.
     inverse-breakable-block: false
@@ -63,10 +68,9 @@ master-default:
     water-lava-flow-from-outside: false
     # Block break timer allows players to place blocks, but removes blocks after the set amount of seconds.
     block-break-timer: 30
+    block-break-timer-active: false
     # drop-block-item will drop the block item after block-break-timer brakes it when set to true.
     drop-block-item: false
-    test: false
-    block-break-timer-active: false
     # block-break-timer-ignore are blocks that will be ignored by the block break timer.
     # inverse-block-break-timer-ignore will set the list of blocks to ignore
     # to only blocks the timer will break.
@@ -76,6 +80,7 @@ master-default:
       - "NETHERITE_BLOCK"
   mob-managers:
     mob-spawn: true
+    # Mob damage prevents mobs like creepers and endermen from breaking blocks.
     mob-damage: false
     # inverse-unspawnable-mobs will set the list of unspawnable mobs to spawnable mobs.
     inverse-unspawnable-mobs: false

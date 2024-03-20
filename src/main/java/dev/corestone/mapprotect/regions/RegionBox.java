@@ -2,11 +2,17 @@ package dev.corestone.mapprotect.regions;
 
 import dev.corestone.mapprotect.MapProtect;
 import dev.corestone.mapprotect.RegionManager;
+
+import dev.corestone.mapprotect.regions.regionmanagers.PlayerFallDamageHandler;
+import dev.corestone.mapprotect.regions.regionmanagers.RegionHandler;
 import dev.corestone.mapprotect.utilities.DataBook;
 import org.bukkit.Bukkit;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.util.BoundingBox;
+
+import java.util.ArrayList;
 
 
 public class RegionBox implements Listener, RegionInterface {
@@ -18,6 +24,7 @@ public class RegionBox implements Listener, RegionInterface {
 
     private String name;
     private BukkitScheduler scheduler;
+    private ArrayList<RegionHandler> regionHandlers = new ArrayList<>();
 
     public RegionBox(MapProtect plugin, RegionManager manager, String name){
 
@@ -25,17 +32,23 @@ public class RegionBox implements Listener, RegionInterface {
         this.name = name;
         this.manager = manager;
         this.scheduler = plugin.getServer().getScheduler();
-        //create managers
-
-        //other logic
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         this.box = plugin.getLocationData().getBox(name);
-        //state = RegionState.valueOf(DataBook.getRegionDataPath(name, "state"));
+        state = RegionState.valueOf(plugin.getRegionData().getConfig().getString("regions."+name+".map-master.map-state"));
 
 
-        scheduler.runTaskTimer(plugin, ()->{
-            Bukkit.broadcastMessage("Region "+ name + " is alive");
-        }, 0L, 60L);
+        //create managers
+        regionHandlers.add(new PlayerFallDamageHandler(plugin, this));
+
+
+        //other logic
+
+//        scheduler.runTaskTimer(plugin, (f)->{
+//            if(state == RegionState.DELETED){
+//                f.cancel();
+//            }
+//            Bukkit.broadcastMessage("Region " + name + " is alive. + " + state);
+//        }, 0L, 80L);
     }
     @Override
     public void setState(RegionState state) {
@@ -47,16 +60,22 @@ public class RegionBox implements Listener, RegionInterface {
                     break;
                 case LOCKED:
                     break;
-                case CLOSED:
-                    break;
-                case JAILED:
+                case DELETED:
+
+                    for(RegionHandler handler : regionHandlers){
+                        handler.delete();
+                    }
+
+                    HandlerList.unregisterAll(this);
                     break;
             }
     }
 
     @Override
     public void shutDown() {
-
+        this.scheduler = null;
+        HandlerList.unregisterAll(this);
+        setState(RegionState.DELETED);
     }
 
     @Override
