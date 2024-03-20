@@ -25,6 +25,7 @@ public class HelpCommand implements CommandExecutor {
         player.sendMessage(Colorize.format(PlayerMessage.commandUsage));
         player.sendMessage("");
         player.sendMessage(Colorize.format(PlayerMessage.mpWandUsage));
+        player.sendMessage(Colorize.format(PlayerMessage.mpReload));
         player.sendMessage(Colorize.format(PlayerMessage.mpCreateCmdUsage));
         player.sendMessage(Colorize.format(PlayerMessage.mpRemoveMapUsage));
         player.sendMessage(Colorize.format(PlayerMessage.mpCreateDefault));

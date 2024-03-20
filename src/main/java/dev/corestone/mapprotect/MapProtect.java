@@ -2,6 +2,7 @@ package dev.corestone.mapprotect;
 
 import dev.corestone.mapprotect.commands.*;
 import dev.corestone.mapprotect.data.DefaultData;
+import dev.corestone.mapprotect.data.LanguageData;
 import dev.corestone.mapprotect.data.LocationData;
 import dev.corestone.mapprotect.data.RegionData;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -10,6 +11,7 @@ public final class MapProtect extends JavaPlugin {
     private LocationData locationData;
     private RegionData regionData;
     private DefaultData defaultData;
+    private LanguageData languageData;
     private RegionManager manager;
 
     //commands
@@ -26,6 +28,7 @@ public final class MapProtect extends JavaPlugin {
         this.locationData = new LocationData(this);
         this.defaultData = new DefaultData(this);
         this.regionData = new RegionData(this);
+        this.languageData = new LanguageData(this);
         //commands
         this.helpCommand = new HelpCommand(this);
         this.mapListCommand = new MapListCommand(this);
@@ -41,12 +44,6 @@ public final class MapProtect extends JavaPlugin {
     public void onDisable() {
         // Plugin shutdown logic
         manager.shutDown();
-
-        locationData = null;
-        defaultData = null;
-        regionData = null;
-        manager = null;
-
     }
 
     public void reloadPlugin(){
@@ -54,6 +51,7 @@ public final class MapProtect extends JavaPlugin {
         this.locationData = new LocationData(this);
         this.defaultData = new DefaultData(this);
         this.regionData = new RegionData(this);
+        this.languageData = new LanguageData(this);
         manager.startUp();
     }
 
@@ -65,6 +63,9 @@ public final class MapProtect extends JavaPlugin {
     }
     public DefaultData getDefaultData(){
         return defaultData;
+    }
+    public LanguageData getLanguageData(){
+        return languageData;
     }
     public RegionManager getManager(){
         return manager;

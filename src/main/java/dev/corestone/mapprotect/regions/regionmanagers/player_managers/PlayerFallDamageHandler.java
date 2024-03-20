@@ -1,8 +1,9 @@
-package dev.corestone.mapprotect.regions.regionmanagers;
+package dev.corestone.mapprotect.regions.regionmanagers.player_managers;
 
 import dev.corestone.mapprotect.MapProtect;
 import dev.corestone.mapprotect.regions.RegionBox;
 import dev.corestone.mapprotect.regions.RegionState;
+import dev.corestone.mapprotect.regions.regionmanagers.RegionHandler;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;

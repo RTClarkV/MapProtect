@@ -55,6 +55,7 @@ public class RegionManager {
     }
     public void removeDefault(String name){
         plugin.getDefaultData().remove("default-profiles."+name);
+        plugin.getDefaultData().getDefaultList().remove(name);
     }
 //    public void reloadRegions(){
 //        shutDown();

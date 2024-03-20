@@ -5,7 +5,4 @@ public enum RegionState {
     IDLE,
     LOCKED,
     DELETED;
-
-
-
 }

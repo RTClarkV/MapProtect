@@ -3,9 +3,9 @@ package dev.corestone.mapprotect.regions;
 import dev.corestone.mapprotect.MapProtect;
 import dev.corestone.mapprotect.RegionManager;
 
-import dev.corestone.mapprotect.regions.regionmanagers.PlayerFallDamageHandler;
+import dev.corestone.mapprotect.regions.regionmanagers.player_managers.PlayerEntryExitHandler;
+import dev.corestone.mapprotect.regions.regionmanagers.player_managers.PlayerFallDamageHandler;
 import dev.corestone.mapprotect.regions.regionmanagers.RegionHandler;
-import dev.corestone.mapprotect.utilities.DataBook;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
@@ -39,7 +39,7 @@ public class RegionBox implements Listener, RegionInterface {
 
         //create managers
         regionHandlers.add(new PlayerFallDamageHandler(plugin, this));
-
+        regionHandlers.add(new PlayerEntryExitHandler(plugin, this));
 
         //other logic
 
@@ -61,11 +61,9 @@ public class RegionBox implements Listener, RegionInterface {
                 case LOCKED:
                     break;
                 case DELETED:
-
                     for(RegionHandler handler : regionHandlers){
                         handler.delete();
                     }
-
                     HandlerList.unregisterAll(this);
                     break;
             }
@@ -73,7 +71,6 @@ public class RegionBox implements Listener, RegionInterface {
 
     @Override
     public void shutDown() {
-        this.scheduler = null;
         HandlerList.unregisterAll(this);
         setState(RegionState.DELETED);
     }
