@@ -8,4 +8,4 @@ player-exit-deny: "&cYou cannot exit this area!"
 player-pvp-deny: "&cPvP is disabled in this region!"
 #
 water-drink-reminder: "Hydrate or die! Drink now!!!!!!!"
-test: false
+test: true
