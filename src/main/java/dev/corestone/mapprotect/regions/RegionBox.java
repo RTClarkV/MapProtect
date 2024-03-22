@@ -6,6 +6,7 @@ import dev.corestone.mapprotect.RegionManager;
 import dev.corestone.mapprotect.regions.regionmanagers.player_managers.PlayerEntryExitHandler;
 import dev.corestone.mapprotect.regions.regionmanagers.player_managers.PlayerFallDamageHandler;
 import dev.corestone.mapprotect.regions.regionmanagers.RegionHandler;
+import dev.corestone.mapprotect.regions.regionmanagers.player_managers.PlayerPvP;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
@@ -34,21 +35,15 @@ public class RegionBox implements Listener, RegionInterface {
         this.scheduler = plugin.getServer().getScheduler();
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         this.box = plugin.getLocationData().getBox(name);
-        state = RegionState.valueOf(plugin.getRegionData().getConfig().getString("regions."+name+".map-master.map-state"));
+        state = RegionState.valueOf(plugin.getRegionData().getConfig().getString("regions."+name+".map-master.map-state").toUpperCase());
 
 
         //create managers
         regionHandlers.add(new PlayerFallDamageHandler(plugin, this));
         regionHandlers.add(new PlayerEntryExitHandler(plugin, this));
-
+        regionHandlers.add(new PlayerPvP(plugin, this));
         //other logic
 
-//        scheduler.runTaskTimer(plugin, (f)->{
-//            if(state == RegionState.DELETED){
-//                f.cancel();
-//            }
-//            Bukkit.broadcastMessage("Region " + name + " is alive. + " + state);
-//        }, 0L, 80L);
     }
     @Override
     public void setState(RegionState state) {

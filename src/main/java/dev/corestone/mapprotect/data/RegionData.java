@@ -104,4 +104,9 @@ public class RegionData implements DataFile {
         return getConfig().get("regions."+regionName+".mob-managers."+dataPiece);
     }
 
+    public Object getMasterData(String regionName, String dataPiece){
+        return getConfig().get("regions."+regionName+".map-master."+dataPiece);
+
+    }
+
 }

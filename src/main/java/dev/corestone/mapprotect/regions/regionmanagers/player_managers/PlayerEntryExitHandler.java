@@ -7,6 +7,7 @@ import dev.corestone.mapprotect.regions.regionmanagers.RegionHandler;
 import dev.corestone.mapprotect.utilities.Colorize;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
@@ -31,6 +32,11 @@ public class PlayerEntryExitHandler implements RegionHandler, Listener {
     private String entryDenyMessage;
     private String exitDenyMessage;
 
+    private String entryGreeting;
+    private String exitFairwell;
+    private Sound entrySound;
+    private Sound exitSound;
+
     public PlayerEntryExitHandler(MapProtect plugin, RegionBox regionBox){
         this.region = regionBox;
         this.plugin = plugin;
@@ -40,11 +46,18 @@ public class PlayerEntryExitHandler implements RegionHandler, Listener {
         this.entry = (boolean) plugin.getRegionData().getPlayerData(region.getName(), "player-entry");
         this.entryDenyMessage = plugin.getLanguageData().getLang("player-entry-deny");
         this.exitDenyMessage = plugin.getLanguageData().getLang("player-exit-deny");
+
+        this.entryGreeting = (String) plugin.getRegionData().getMasterData(region.getName(), "entry-title");
+        this.exitFairwell = (String) plugin.getRegionData().getMasterData(region.getName(), "exit-title");
+
+        this.entrySound = (Sound) Sound.valueOf(((String) plugin.getRegionData().getPlayerData(region.getName(), "entry-sound")).toUpperCase());
+        this.exitSound = (Sound) Sound.valueOf(((String) plugin.getRegionData().getPlayerData(region.getName(), "exit-sound")).toUpperCase());
+
         for(Player player : Bukkit.getOnlinePlayers()){
             playerLocations.clear();
             playerLocations.put(player.getUniqueId(), player.getLocation());
         }
-        if(!exit || !entry){
+        if(!exit || !entry || entrySound != null || exitSound != null){
             runTasks();
         }
     }
@@ -55,7 +68,7 @@ public class PlayerEntryExitHandler implements RegionHandler, Listener {
             }
             if(region.getState() == RegionState.IDLE)return;
             for(UUID uuid : playerLocations.keySet()){
-                if(entry && exit)return;
+                //if(entry && exit)return;
                 if(region.getBox().contains(Bukkit.getPlayer(uuid).getLocation().toVector()) && !region.getBox().contains(playerLocations.get(uuid).toVector()) && !entry){
                     scheduler.runTask(plugin, ()->{
                         Bukkit.getPlayer(uuid).sendMessage(Colorize.format(entryDenyMessage));
@@ -70,9 +83,21 @@ public class PlayerEntryExitHandler implements RegionHandler, Listener {
                     });
                     return;
                 }
+                if(entrySound != null && region.getBox().contains(Bukkit.getPlayer(uuid).getLocation().toVector()) && !region.getBox().contains(playerLocations.get(uuid).toVector())){
+                    scheduler.runTask(plugin, ()->{
+                        Bukkit.getPlayer(uuid).sendMessage(Colorize.format(entryGreeting));
+                       Bukkit.getPlayer(uuid).playSound(playerLocations.get(uuid), entrySound, 1, 1);
+                    });
+                }
+                if(exitSound != null && region.getBox().contains(playerLocations.get(uuid).toVector()) && !region.getBox().contains(Bukkit.getPlayer(uuid).getLocation().toVector())){
+                    scheduler.runTask(plugin, ()->{
+                        Bukkit.getPlayer(uuid).sendMessage(Colorize.format(exitFairwell));
+                        Bukkit.getPlayer(uuid).playSound(playerLocations.get(uuid), exitSound, 1, 1);
+                    });
+                }
                 playerLocations.replace(uuid, Bukkit.getPlayer(uuid).getLocation());
             }
-        }, 0L, 40L);
+        }, 0L, 10L);
     }
     @EventHandler
     public void onJoin(PlayerJoinEvent e){

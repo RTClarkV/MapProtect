@@ -42,3 +42,6 @@ commands:
   mpreload:
     usage: /<command>
     permission: mp.admin
+  mpstate:
+    usage: /<comand>
+    permission: mp.admin
