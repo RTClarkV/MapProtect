@@ -7,7 +7,6 @@ import dev.corestone.mapprotect.regions.regionmanagers.player_managers.PlayerEnt
 import dev.corestone.mapprotect.regions.regionmanagers.player_managers.PlayerFallDamageHandler;
 import dev.corestone.mapprotect.regions.regionmanagers.RegionHandler;
 import dev.corestone.mapprotect.regions.regionmanagers.player_managers.PlayerPvP;
-import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitScheduler;
