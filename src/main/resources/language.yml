@@ -5,4 +5,4 @@ player-exit-deny: "&cYou cannot exit this area!"
 ##
 player-pvp-deny: "&cPvP is disabled in this region!"
 player-block-place-deny: "&4You cannot build with that block."
-swag: "a"
+noSWAG: "f:"
