@@ -53,8 +53,8 @@ public class PlayerEntryExitHandler implements RegionHandler, Listener {
         this.entrySound = (Sound) Sound.valueOf(((String) plugin.getRegionData().getPlayerData(region.getName(), "entry-sound")).toUpperCase());
         this.exitSound = (Sound) Sound.valueOf(((String) plugin.getRegionData().getPlayerData(region.getName(), "exit-sound")).toUpperCase());
 
+        playerLocations.clear();
         for(Player player : Bukkit.getOnlinePlayers()){
-            playerLocations.clear();
             playerLocations.put(player.getUniqueId(), player.getLocation());
         }
         if(!exit || !entry || entrySound != null || exitSound != null){
