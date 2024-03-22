@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public interface RegionInterface {
-
-
     void shutDown();
     RegionState getState();
     void setState(RegionState state);
