@@ -36,7 +36,6 @@ public class RegionBox implements Listener, RegionInterface {
         this.box = plugin.getLocationData().getBox(name);
         state = RegionState.valueOf(plugin.getRegionData().getConfig().getString("regions."+name+".map-master.map-state").toUpperCase());
 
-
         //create managers
         regionHandlers.add(new PlayerFallDamageHandler(plugin, this));
         regionHandlers.add(new PlayerEntryExitHandler(plugin, this));
