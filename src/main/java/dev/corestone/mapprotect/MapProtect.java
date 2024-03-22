@@ -48,6 +48,7 @@ public final class MapProtect extends JavaPlugin {
 
     public void reloadPlugin(){
         manager.shutDown();
+        // resets the location data folders.
         this.locationData = new LocationData(this);
         this.defaultData = new DefaultData(this);
         this.regionData = new RegionData(this);
