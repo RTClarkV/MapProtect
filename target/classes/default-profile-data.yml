@@ -1,0 +1,89 @@
+version: 1.4-IN-DEV
+  ##================================================================================
+  ##
+  ##                        DO NOT delete Master Default.
+  ##      Master Default is the default of all defaults, King of the defaults.
+  ##            Please read documentation for each part of Master Default.
+  ##                       Permission for admins: mp.admin
+  ##
+  ##================================================================================
+  ##                                Map State
+  ##--------------------------------------------------------------------------------
+  ## map-state can be in 5 states: ACTIVE, IDLE or LOCKED.
+  ## You can change the state in game with: /mpstate <map_name> <state>
+  ## You can check the state of a map with: /mpstate <map_name>
+  ## ACTIVE state: the map will run as usual with the given parameters.
+  ## IDLE state: the map will do nothing as if it was not there, so careful using this state.
+  ## LOCKED state: Does not allow any player interactions, player entry, or block damage. Good for preventing further damage to an area quickly.
+  ##
+  # Block types can be found at: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
+  # Sound types can be found at: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html
+  # Item types can also be found at: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
+  # Potion Effect types can be found at: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/potion/PotionEffectType.html#ABSORPTION
+
+  ##
+  ##--------------------------------------------------------------------------------
+  ##
+master-default:
+  map-master:
+    map-state: ACTIVE
+    entry-title: "&aWelcome!"
+    exit-title: "&bGoodbye."
+  player-managers:
+    player-pvp: false
+    player-interact: true
+    player-entry: true
+    player-exit: true
+    player-fall-damage: true
+    player-hunger: true
+    # Leave Entry/Exit sounds empty for no sound.
+    entry-sound: "ENTITY_PLAYER_LEVELUP"
+    exit-sound: "BLOCK_NOTE_BLOCK_BANJO"
+    potion-effects:
+      LUCK: 1
+    unusable-items:
+      - "ENDER_PEARL"
+      - "LAVA_BUCKET"
+  block-managers:
+    # If block-break is false and block-place is true, players will only be able to break blocks placed by other players.
+    # Players with the mp.admin permission's block placement will not be tracked, meaning normal players cannot break them.
+    # TODO: make mp.build with a /build command.
+    block-break: false
+    block-place: false
+    # inverse-breakable-block sets the list of breakable blocks to unbreakable blocks.
+    inverse-breakable-block: false
+    breakable-blocks:
+      - "BEDROCK"
+      - "END_PORTAL_FRAME"
+    # inverse-unplaceable-blocks sets the list of unplaceable blocks to placeable blocks.
+    inverse-unplaceable-blocks: false
+    unplaceable-blocks:
+      - "BEDROCK"
+    explosion-damage: false
+    block-burn: false
+    water-lava-flow-inside: true
+    ## prevents water and lava from flowing from the outside to the inside.
+    water-lava-flow-from-outside: false
+    # Block break timer allows players to place blocks, but removes blocks after the set amount of seconds.
+    block-break-timer: 30
+    block-break-timer-active: false
+    # drop-block-item will drop the block item after block-break-timer brakes it when set to true.
+    drop-block-item: false
+    # block-break-timer-ignore are blocks that will be ignored by the block break timer.
+    # inverse-block-break-timer-ignore will set the list of blocks to ignore
+    # to only blocks the timer will break.
+    inverse-block-break-timer-ignore: false
+    block-break-timer-ignore:
+      - "DIAMOND_BLOCK"
+      - "NETHERITE_BLOCK"
+  mob-managers:
+    monster-spawn: true
+    friendly-mob-spawn: false
+    monster-block-break: false
+    # inverse-unspawnable-mobs will set the list of unspawnable mobs to spawnable mobs.
+    inverse-unspawnable-mobs: false
+    unspawnable-mobs:
+      - "ENDER_DRAGON"
+      - "WITHER"
+default-profiles:
+

@@ -1,0 +1,48 @@
+name: MapProtect
+version: '1.0-SNAPSHOT'
+main: dev.corestone.mapprotect.MapProtect
+api-version: '1.20'
+authors: [CoreStone]
+commands:
+  mpwand:
+    usage: /<command>
+    permission:
+      mp.wand
+  mpcreate:
+    usage: /<command> <name>
+    permission:
+      mp.admin
+  mpremovemap:
+    usage: /<command> <map>
+    permission:
+      mp.admin
+    aliases:
+      - mpdeletemap
+  mpcreatedefault:
+    usage: /<command> <existing-profile> <name>
+    aliases:
+      - mpmakedefault
+    permission:
+      mp.admin
+  mpremovedefault:
+    usage: /<command> <name>
+    permission:
+      mp.admin
+    aliases:
+      - mpdeletedefault
+  mpdeletedefault:
+    usage: /<command> <map>
+    permission:
+      mp.admin
+  mplist:
+    usage: /<command>
+    permission: mp.admin
+  mphelp:
+    usage: /<command>
+    permission: mp.admin
+  mpreload:
+    usage: /<command>
+    permission: mp.admin
+  mpstate:
+    usage: /<comand>
+    permission: mp.admin
