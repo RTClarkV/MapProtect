@@ -1,7 +1,11 @@
 version: 1.2-IN-DEV
-#
+##
 player-entry-deny: "&cYou cannot enter this area!"
 player-exit-deny: "&cYou cannot exit this area!"
 ##
 player-pvp-deny: "&cPvP is disabled in this region!"
+player-interact-deny: "&cYou cannot interact in this area!"
+
 player-block-place-deny: "&4You cannot build with that block."
+
+

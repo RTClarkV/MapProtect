@@ -4,8 +4,8 @@ player-entry-deny: "&cYou cannot enter this area!"
 player-exit-deny: "&cYou cannot exit this area!"
 ##
 player-pvp-deny: "&cPvP is disabled in this region!"
-<<<<<<< HEAD
+player-interact-deny: "&cYou cannot interact in this area!"
+
 player-block-place-deny: "&4You cannot build with that block."
-=======
-player-block-place-deny: "&4You cannot build with that block."
->>>>>>> e5a0557 (made the entry/exit sounds not nullable.)
+
+
