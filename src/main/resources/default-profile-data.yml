@@ -27,8 +27,12 @@ version: 1.4-IN-DEV
 master-default:
   map-master:
     map-state: ACTIVE
+    entry-exit-titles: true
     entry-title: "&aWelcome!"
     exit-title: "&bGoodbye."
+    entry-exit-sounds: true
+    entry-sound: "ENTITY_PLAYER_LEVELUP"
+    exit-sound: "BLOCK_NOTE_BLOCK_BANJO"
   player-managers:
     player-pvp: false
     player-interact: true
@@ -36,9 +40,6 @@ master-default:
     player-exit: true
     player-fall-damage: true
     player-hunger: true
-    # Leave Entry/Exit sounds empty for no sound.
-    entry-sound: "ENTITY_PLAYER_LEVELUP"
-    exit-sound: "BLOCK_NOTE_BLOCK_BANJO"
     potion-effects:
       LUCK: 1
     unusable-items:
