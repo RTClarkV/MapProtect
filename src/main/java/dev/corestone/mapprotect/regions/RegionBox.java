@@ -6,6 +6,7 @@ import dev.corestone.mapprotect.RegionManager;
 import dev.corestone.mapprotect.regions.regionmanagers.player_managers.PlayerEntryExitHandler;
 import dev.corestone.mapprotect.regions.regionmanagers.player_managers.PlayerFallDamageHandler;
 import dev.corestone.mapprotect.regions.regionmanagers.RegionHandler;
+import dev.corestone.mapprotect.regions.regionmanagers.player_managers.PlayerInteractHandler;
 import dev.corestone.mapprotect.regions.regionmanagers.player_managers.PlayerPvP;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
@@ -40,6 +41,7 @@ public class RegionBox implements Listener, RegionInterface {
         regionHandlers.add(new PlayerFallDamageHandler(plugin, this));
         regionHandlers.add(new PlayerEntryExitHandler(plugin, this));
         regionHandlers.add(new PlayerPvP(plugin, this));
+        regionHandlers.add(new PlayerInteractHandler(plugin, this));
         //other logic
 
     }
