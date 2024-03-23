@@ -50,8 +50,12 @@ public class PlayerEntryExitHandler implements RegionHandler, Listener {
         this.entryGreeting = (String) plugin.getRegionData().getMasterData(region.getName(), "entry-title");
         this.exitFairwell = (String) plugin.getRegionData().getMasterData(region.getName(), "exit-title");
 
-        this.entrySound = (Sound) Sound.valueOf(((String) plugin.getRegionData().getPlayerData(region.getName(), "entry-sound")).toUpperCase());
-        this.exitSound = (Sound) Sound.valueOf(((String) plugin.getRegionData().getPlayerData(region.getName(), "exit-sound")).toUpperCase());
+        if(plugin.getRegionData().getPlayerData(region.getName(), "entry-sound") != null){
+            this.entrySound = (Sound) Sound.valueOf(((String) plugin.getRegionData().getPlayerData(region.getName(), "entry-sound")).toUpperCase());
+        }
+        if(plugin.getRegionData().getPlayerData(region.getName(), "exit-sound") != null){
+            this.exitSound = (Sound) Sound.valueOf(((String) plugin.getRegionData().getPlayerData(region.getName(), "exit-sound")).toUpperCase());
+        }
 
         playerLocations.clear();
         for(Player player : Bukkit.getOnlinePlayers()){
