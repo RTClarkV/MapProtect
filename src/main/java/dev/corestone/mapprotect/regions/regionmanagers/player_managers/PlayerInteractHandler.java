@@ -29,7 +29,8 @@ public class PlayerInteractHandler implements RegionHandler, Listener {
     public void playerInteractListener(PlayerInteractEvent event){
         if(canInteract)return;
         if(region.getState() == RegionState.IDLE)return;
-        if(!region.getBox().contains(event.getInteractionPoint().toVector()))return;
+        if(event.getClickedBlock() == null)return;
+        if(!region.getBox().contains(event.getClickedBlock().getLocation().toVector()))return;
         event.setCancelled(true);
         event.getPlayer().sendMessage(Colorize.format(playerInteractDenyMessage));
     }
