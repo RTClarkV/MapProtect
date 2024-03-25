@@ -1,5 +1,6 @@
 package dev.corestone.mapprotect.regions.regionmanagers.player_managers;
 
+import com.destroystokyo.paper.event.entity.TurtleLayEggEvent;
 import dev.corestone.mapprotect.MapProtect;
 import dev.corestone.mapprotect.regions.RegionBox;
 import dev.corestone.mapprotect.regions.RegionState;
@@ -15,6 +16,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockExplodeEvent;
+import org.bukkit.event.entity.EntityDamageByBlockEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 public class ExplosionDamageHandler implements RegionHandler, Listener {
@@ -63,17 +66,28 @@ public class ExplosionDamageHandler implements RegionHandler, Listener {
     }
 
     @EventHandler
-    public void explosionDamageListener(EntityDamageEvent event){
+    public void explosionDamageByEntityListener(EntityDamageByEntityEvent event){
         if (canExplode)return;
         if (region.getState() == RegionState.IDLE)return;
-        if (event.getCause() == EntityDamageEvent.DamageCause.BLOCK_EXPLOSION || event.getCause() == EntityDamageEvent.DamageCause.ENTITY_EXPLOSION) {
+        if (event.getCause() == EntityDamageEvent.DamageCause.ENTITY_EXPLOSION && region.getBox().contains(event.getDamager().getLocation().toVector())){
             event.setCancelled(true);
             if(event.getEntity() instanceof Player){
                 event.getEntity().sendMessage(Colorize.format(explosionDamageDenyMessage));
             }
         }
     }
-
+    //event.getCause() == EntityDamageEvent.DamageCause.BLOCK_EXPLOSION ||
+    @EventHandler
+    public void explosionDamageByBlockListener(EntityDamageByBlockEvent event){
+        if (canExplode)return;
+        if (region.getState() == RegionState.IDLE)return;
+        if (event.getCause() == EntityDamageEvent.DamageCause.ENTITY_EXPLOSION && region.getBox().contains(event.getDamager().getLocation().toVector())){
+            event.setCancelled(true);
+            if(event.getEntity() instanceof Player){
+                event.getEntity().sendMessage(Colorize.format(explosionDamageDenyMessage));
+            }
+        }
+    }
 
     @Override
     public void delete() {
