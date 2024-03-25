@@ -37,6 +37,5 @@ public class PlayerFallDamageHandler implements RegionHandler, Listener {
         if(e.getCause() == EntityDamageEvent.DamageCause.FALL){
             e.setCancelled(true);
         }
-
     }
 }
