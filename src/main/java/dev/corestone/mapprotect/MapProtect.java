@@ -21,6 +21,7 @@ public final class MapProtect extends JavaPlugin {
     private CreateNewDefaultCommand createNewDefaultCommand;
     private MapDeleteCommand mapDeleteCommand;
     private ReloadCommand reloadCommand;
+    private MapTeleportCommand mapTeleportCommand;
     @Override
     public void onEnable() {
         // Plugin startup logic
@@ -29,15 +30,15 @@ public final class MapProtect extends JavaPlugin {
         this.defaultData = new DefaultData(this);
         this.regionData = new RegionData(this);
         this.languageData = new LanguageData(this);
+        //manager
+        this.manager = new RegionManager(this);
         //commands
         this.helpCommand = new HelpCommand(this);
         this.mapListCommand = new MapListCommand(this);
         this.mapManageCommand = new MapManageCommand(this);
         this.createNewDefaultCommand = new CreateNewDefaultCommand(this);
         this.reloadCommand = new ReloadCommand(this);
-
-        //manager
-        this.manager = new RegionManager(this);
+        this.mapTeleportCommand = new MapTeleportCommand(this);
     }
 
     @Override

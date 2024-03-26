@@ -46,3 +46,21 @@ commands:
   mpstate:
     usage: /<comand>
     permission: mp.admin
+  mpteleport:
+    usage: /<command> <map>
+    permission: mp.admin
+    aliases:
+      - mptp
+  mpsetmapspawn:
+    usage: /<command> <map>
+    permission: mp.admin
+    aliases:
+      - mpsetspawn
+  mpteleportplayer:
+    usage: /<command> <player> <map>
+    permission: mp.admin
+    aliases:
+      - mptpp
+permissions:
+  mp.admin:
+    description: for map protect admins only.
