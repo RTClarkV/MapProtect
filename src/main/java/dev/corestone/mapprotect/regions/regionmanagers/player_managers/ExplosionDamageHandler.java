@@ -45,6 +45,7 @@ public class ExplosionDamageHandler implements RegionHandler, Listener {
             if (region.getBox().contains(explodedBlock.getLocation().toVector())){
                 event.setCancelled(true);
                 world.playSound(explosionLocation, Sound.ENTITY_ARMOR_STAND_BREAK, 1.0f, 1.0f);
+                System.out.println("ExplosionDamageListenerEntity worked");
                 break;
             }
         }
@@ -60,6 +61,7 @@ public class ExplosionDamageHandler implements RegionHandler, Listener {
             if (region.getBox().contains(explodedBlock.getLocation().toVector())){
                 event.setCancelled(true);
                 world.playSound(explosionLocation, Sound.ENTITY_ARMOR_STAND_BREAK, 1.0f, 1.0f);
+                System.out.println("ExplosionDamageListenerBlock worked");
                 break;
             }
         }
@@ -67,26 +69,25 @@ public class ExplosionDamageHandler implements RegionHandler, Listener {
 
     @EventHandler
     public void explosionDamageByEntityListener(EntityDamageByEntityEvent event){
+        Entity damagedEntity = event.getEntity();
         if (canExplode)return;
         if (region.getState() == RegionState.IDLE)return;
-        if (event.getCause() == EntityDamageEvent.DamageCause.ENTITY_EXPLOSION && region.getBox().contains(event.getDamager().getLocation().toVector())){
-            event.setCancelled(true);
-            if(event.getEntity() instanceof Player){
-                event.getEntity().sendMessage(Colorize.format(explosionDamageDenyMessage));
-            }
-        }
+        if (event.getCause() != EntityDamageEvent.DamageCause.ENTITY_EXPLOSION)return;
+        if (!region.getBox().contains(damagedEntity.getLocation().toVector()))return;
+        event.setCancelled(true);
+        if (event.getEntity() instanceof Player) {event.getEntity().sendMessage(Colorize.format(explosionDamageDenyMessage));}
+
     }
-    //event.getCause() == EntityDamageEvent.DamageCause.BLOCK_EXPLOSION ||
+
     @EventHandler
     public void explosionDamageByBlockListener(EntityDamageByBlockEvent event){
+        Entity damagedEntity = event.getEntity();
         if (canExplode)return;
         if (region.getState() == RegionState.IDLE)return;
-        if (event.getCause() == EntityDamageEvent.DamageCause.ENTITY_EXPLOSION && region.getBox().contains(event.getDamager().getLocation().toVector())){
-            event.setCancelled(true);
-            if(event.getEntity() instanceof Player){
-                event.getEntity().sendMessage(Colorize.format(explosionDamageDenyMessage));
-            }
-        }
+        if (event.getCause() != EntityDamageEvent.DamageCause.BLOCK_EXPLOSION)return;
+        if (!region.getBox().contains(damagedEntity.getLocation().toVector()))return;
+        event.setCancelled(true);
+        if (event.getEntity() instanceof Player) {event.getEntity().sendMessage(Colorize.format(explosionDamageDenyMessage));}
     }
 
     @Override
@@ -94,3 +95,4 @@ public class ExplosionDamageHandler implements RegionHandler, Listener {
         HandlerList.unregisterAll(this);
     }
 }
+
