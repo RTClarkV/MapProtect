@@ -45,7 +45,6 @@ public class ExplosionDamageHandler implements RegionHandler, Listener {
             if (region.getBox().contains(explodedBlock.getLocation().toVector())){
                 event.setCancelled(true);
                 world.playSound(explosionLocation, Sound.ENTITY_ARMOR_STAND_BREAK, 1.0f, 1.0f);
-                System.out.println("ExplosionDamageListenerEntity worked");
                 break;
             }
         }
@@ -61,7 +60,6 @@ public class ExplosionDamageHandler implements RegionHandler, Listener {
             if (region.getBox().contains(explodedBlock.getLocation().toVector())){
                 event.setCancelled(true);
                 world.playSound(explosionLocation, Sound.ENTITY_ARMOR_STAND_BREAK, 1.0f, 1.0f);
-                System.out.println("ExplosionDamageListenerBlock worked");
                 break;
             }
         }
