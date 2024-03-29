@@ -50,6 +50,7 @@ public class RegionManager {
         for(RegionBox regionBox : regions){
             if(regionBox.getName().equalsIgnoreCase(name)){
                 regionBox.setState(RegionState.DELETED);
+                regions.remove(regionBox);
             }
         }
     }
@@ -57,10 +58,17 @@ public class RegionManager {
         plugin.getDefaultData().remove("default-profiles."+name);
         plugin.getDefaultData().getDefaultList().remove(name);
     }
-//    public void reloadRegions(){
-//        shutDown();
-//        loadRegions();
-//    }
+    public RegionBox getRegion(String name){
+        for(RegionBox regionBox : regions){
+            if(regionBox.getName().equals(name)){
+                return regionBox;
+            }
+        }
+        return null;
+    }
+    public ArrayList<RegionBox> getRegionList(){
+        return regions;
+    }
     public void shutDown(){
         for(RegionBox regionBox : regions){
             regionBox.setState(RegionState.DELETED);
