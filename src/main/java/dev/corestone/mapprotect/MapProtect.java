@@ -25,10 +25,9 @@ public final class MapProtect extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
-
-        this.locationData = new LocationData(this);
         this.defaultData = new DefaultData(this);
         this.regionData = new RegionData(this);
+        this.locationData = new LocationData(this);
         this.languageData = new LanguageData(this);
         //manager
         this.manager = new RegionManager(this);

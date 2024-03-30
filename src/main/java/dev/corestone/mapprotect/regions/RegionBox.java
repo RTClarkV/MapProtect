@@ -5,15 +5,17 @@ import dev.corestone.mapprotect.RegionManager;
 
 import dev.corestone.mapprotect.regions.regionmanagers.player_managers.*;
 import dev.corestone.mapprotect.regions.regionmanagers.RegionHandler;
+import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.util.BoundingBox;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 
-public class RegionBox implements Listener, RegionInterface {
+public class RegionBox implements Listener {
 
     private MapProtect plugin;
     private RegionManager manager;
@@ -23,6 +25,7 @@ public class RegionBox implements Listener, RegionInterface {
     private String name;
     private BukkitScheduler scheduler;
     private ArrayList<RegionHandler> regionHandlers = new ArrayList<>();
+    private ArrayList<UUID> playersInside = new ArrayList<>();
 
     public RegionBox(MapProtect plugin, RegionManager manager, String name){
 
@@ -43,7 +46,15 @@ public class RegionBox implements Listener, RegionInterface {
         //other logic
 
     }
-    @Override
+    public void addPlayer(UUID uuid){
+        playersInside.add(uuid);
+    }
+    public void removePlayer(UUID uuid){
+        playersInside.remove(uuid);
+    }
+    public ArrayList<UUID> getPlayersInside(){
+        return playersInside;
+    }
     public void setState(RegionState state) {
             this.state = state;
             switch (state){
@@ -62,23 +73,19 @@ public class RegionBox implements Listener, RegionInterface {
             }
     }
 
-    @Override
     public void shutDown() {
         HandlerList.unregisterAll(this);
         setState(RegionState.DELETED);
     }
 
-    @Override
     public RegionState getState() {
         return state;
     }
 
-    @Override
     public String getName() {
         return name;
     }
 
-    @Override
     public BoundingBox getBox() {
         return box;
     }

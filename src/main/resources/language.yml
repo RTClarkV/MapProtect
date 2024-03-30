@@ -2,6 +2,7 @@ version: 1.2-IN-DEV
 ##
 player-entry-deny: "&cYou cannot enter this area!"
 player-exit-deny: "&cYou cannot exit this area!"
+play-entry-exit-deny-sound: true
 ##
 player-pvp-deny: "&cPvP is disabled in this region!"
 player-interact-deny: "&cYou cannot interact in this area!"
