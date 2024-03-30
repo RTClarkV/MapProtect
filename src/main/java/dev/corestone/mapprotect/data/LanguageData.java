@@ -10,6 +10,7 @@ public class LanguageData implements DataFile {
     private DataManager data;
     private MapProtect plugin;
 
+
     public LanguageData(MapProtect plugin){
         this.plugin = plugin;
         data = new DataManager(plugin, this, "language.yml");

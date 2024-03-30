@@ -34,11 +34,14 @@ master-default:
     entry-sound: "ENTITY_PLAYER_LEVELUP"
     exit-sound: "BLOCK_NOTE_BLOCK_BANJO"
   player-managers:
-    player-pvp: false
-    player-interact: true
+    # Entry and Exit handlers
     player-entry: true
     player-exit: true
+    # Pvp and damage.
+    player-pvp: false
     player-fall-damage: true
+    #
+    player-interact: true
     player-hunger: true
     potion-effects:
       LUCK: 1

@@ -22,7 +22,6 @@ public class RegionManager {
         loadRegions();
         this.wandManager = new WandManager(plugin, this);
         this.mapDeleteCommand = new MapDeleteCommand(plugin, this);
-        //HandlerList.unregisterAll(wandManager);
     }
 
     public void loadRegions(){
@@ -43,16 +42,17 @@ public class RegionManager {
         regions.add(new RegionBox(plugin, this, name));
     }
     public void removeRegion(String name){
-        Bukkit.broadcastMessage("Deleting: "+ name);
         plugin.getRegionData().removeRegion(name);
         plugin.getLocationData().removeBox(name);
         plugin.getDefaultData().remove(name);
+        RegionBox deleteBox = null;
         for(RegionBox regionBox : regions){
-            if(regionBox.getName().equalsIgnoreCase(name)){
+            if(regionBox.getName().equals(name)){
+                deleteBox = regionBox;
                 regionBox.setState(RegionState.DELETED);
-                regions.remove(regionBox);
             }
         }
+        regions.remove(deleteBox);
     }
     public void removeDefault(String name){
         plugin.getDefaultData().remove("default-profiles."+name);
