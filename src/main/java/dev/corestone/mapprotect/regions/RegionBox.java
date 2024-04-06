@@ -3,6 +3,7 @@ package dev.corestone.mapprotect.regions;
 import dev.corestone.mapprotect.MapProtect;
 import dev.corestone.mapprotect.RegionManager;
 
+import dev.corestone.mapprotect.regions.regionmanagers.block_managers.BlockHandler;
 import dev.corestone.mapprotect.regions.regionmanagers.player_managers.*;
 import dev.corestone.mapprotect.regions.regionmanagers.RegionHandler;
 import org.bukkit.Bukkit;
@@ -43,14 +44,21 @@ public class RegionBox implements Listener {
         regionHandlers.add(new PlayerPvP(plugin, this));
         regionHandlers.add(new PlayerInteractHandler(plugin, this));
         regionHandlers.add(new ExplosionDamageHandler(plugin, this));
+        regionHandlers.add(new BlockHandler(plugin, this));
         //other logic
 
     }
     public void addPlayer(UUID uuid){
         playersInside.add(uuid);
+        for(RegionHandler regionHandler : regionHandlers){
+            regionHandler.playerEntry(uuid);
+        }
     }
     public void removePlayer(UUID uuid){
         playersInside.remove(uuid);
+        for(RegionHandler regionHandler : regionHandlers){
+            regionHandler.playerExit(uuid);
+        }
     }
     public ArrayList<UUID> getPlayersInside(){
         return playersInside;

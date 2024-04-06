@@ -17,6 +17,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
+
+import java.util.UUID;
+
 public class ExplosionDamageHandler implements RegionHandler, Listener {
     private MapProtect plugin;
     private RegionBox region;
@@ -79,4 +82,16 @@ public class ExplosionDamageHandler implements RegionHandler, Listener {
     public void delete() {
         HandlerList.unregisterAll(this);
     }
+
+    @Override
+    public void playerEntry(UUID uuid) {
+
+    }
+
+    @Override
+    public void playerExit(UUID uuid) {
+
+    }
+
+
 }

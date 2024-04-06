@@ -10,6 +10,8 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 
+import java.util.UUID;
+
 public class PlayerFallDamageHandler implements RegionHandler, Listener {
 
     private MapProtect plugin;
@@ -27,6 +29,17 @@ public class PlayerFallDamageHandler implements RegionHandler, Listener {
     public void delete() {
         HandlerList.unregisterAll(this);
     }
+
+    @Override
+    public void playerEntry(UUID uuid) {
+
+    }
+
+    @Override
+    public void playerExit(UUID uuid) {
+
+    }
+
 
     @EventHandler
     public void onFall(EntityDamageEvent e){
