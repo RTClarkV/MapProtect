@@ -11,6 +11,8 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 
+import java.util.UUID;
+
 public class PlayerInteractHandler implements RegionHandler, Listener {
     private MapProtect plugin;
     private RegionBox region;
@@ -38,4 +40,16 @@ public class PlayerInteractHandler implements RegionHandler, Listener {
     public void delete() {
         HandlerList.unregisterAll(this);
     }
+
+    @Override
+    public void playerEntry(UUID uuid) {
+
+    }
+
+    @Override
+    public void playerExit(UUID uuid) {
+
+    }
+
+
 }

@@ -186,14 +186,54 @@ public class PlayerEntryExitHandler implements RegionHandler, Listener {
     @EventHandler
     public void teleportHandler(PlayerTeleportEvent e){
         if(entry && exit)return;
+        if(region.getState() == RegionState.IDLE)return;
         if(e.getCause() == PlayerTeleportEvent.TeleportCause.COMMAND || e.getCause() == PlayerTeleportEvent.TeleportCause.PLUGIN){
             playerLocations.replace(e.getPlayer().getUniqueId(), e.getTo());
             return;
         }
-        e.setCancelled(true);
+        if(!entry && region.getBox().contains(e.getTo().toVector()) && !region.getPlayersInside().contains(e.getPlayer().getUniqueId())){
+            e.setCancelled(true);
+        }
+        if(!exit && !region.getBox().contains(e.getTo().toVector()) && region.getPlayersInside().contains(e.getPlayer().getUniqueId())){
+            e.setCancelled(true);
+        }
+    }
+    @EventHandler
+    public void onInteract(PlayerInteractEvent e){
+        if(region.getState() == RegionState.IDLE)return;
+        if(e.getClickedBlock() == null)return;
+        if(e.getInteractionPoint() == null)return;
+        if(!entry){
+            if(!region.getBox().contains(playerLocations.get(e.getPlayer().getUniqueId()).toVector()) && region.getBox().contains(e.getInteractionPoint().toVector())) e.setCancelled(true);
+        }
+        if(!exit){
+            if(region.getBox().contains(playerLocations.get(e.getPlayer().getUniqueId()).toVector()) && !region.getBox().contains(e.getInteractionPoint().toVector())) e.setCancelled(true);
+        }
+    }
+    @EventHandler
+    public void onInteract(PlayerInteractEntityEvent e){
+        if(region.getState() == RegionState.IDLE)return;
+        if(!entry){
+            if(!region.getBox().contains(playerLocations.get(e.getPlayer().getUniqueId()).toVector()) && region.getBox().contains(e.getRightClicked().getLocation().toVector()) && !region.getPlayersInside().contains(e.getPlayer().getUniqueId())) e.setCancelled(true);
+        }
+        if(!exit){
+            if(region.getBox().contains(playerLocations.get(e.getPlayer().getUniqueId()).toVector()) && !region.getBox().contains(e.getRightClicked().getLocation().toVector()) && region.getPlayersInside().contains(e.getPlayer().getUniqueId())) e.setCancelled(true);
+        }
     }
     @Override
     public void delete() {
         HandlerList.unregisterAll(this);
     }
+
+    @Override
+    public void playerEntry(UUID uuid) {
+
+    }
+
+    @Override
+    public void playerExit(UUID uuid) {
+
+    }
+
+
 }

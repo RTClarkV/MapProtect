@@ -7,9 +7,9 @@ play-entry-exit-deny-sound: true
 player-pvp-deny: "&cPvP is disabled in this region!"
 player-interact-deny: "&cYou cannot interact in this area!"
 
-player-block-place-deny: "&cYou cannot build with that block."
+player-build-deny: "&cYou cannot build or place blocks in this area."
 explosion-damage-deny: "&2Phew! You did not take any explosion damage."
-black-rifle-company: "yuum"
 
-
+ # do not change the block place key unless you know what you are doing.
+block-place-key: "mp-block-place"
 

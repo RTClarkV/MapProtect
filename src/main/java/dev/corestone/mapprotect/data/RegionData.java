@@ -11,6 +11,8 @@ import org.bukkit.util.BoundingBox;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class RegionData implements DataFile {
 
@@ -48,7 +50,6 @@ public class RegionData implements DataFile {
 
     @Override
     public void update(YamlConfiguration internalConfig){
-
         set("version", internalConfig.get("version"));
         if(data.getConfig().getConfigurationSection("regions") == null)return;
 
@@ -110,6 +111,8 @@ public class RegionData implements DataFile {
         return getConfig().get("regions."+regionName+".map-master."+dataPiece);
 
     }
-
+    public List<String> getStringArrayBlockData(String regionName, String dataPiece){
+        return getConfig().getStringList("regions."+regionName+".block-managers."+dataPiece);
+    }
 
 }

@@ -11,6 +11,8 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
+import java.util.UUID;
+
 public class PlayerPvP implements RegionHandler, Listener {
 
     private MapProtect plugin;
@@ -38,4 +40,15 @@ public class PlayerPvP implements RegionHandler, Listener {
     public void delete() {
         HandlerList.unregisterAll(this);
     }
+
+    @Override
+    public void playerEntry(UUID uuid) {
+
+    }
+
+    @Override
+    public void playerExit(UUID uuid) {
+
+    }
+
 }

@@ -49,28 +49,24 @@ master-default:
       - "ENDER_PEARL"
       - "LAVA_BUCKET"
   block-managers:
-    # If block-break is false and block-place is true, players will only be able to break blocks placed by other players.
-    # Players with the mp.admin permission's block placement will not be tracked, meaning normal players cannot break them.
+    # Build prevents players from placing or breaking blocks.
     # TODO: make mp.build with a /build command.
-    block-break: false
-    block-place: false
+    build: false
     # inverse-breakable-block sets the list of breakable blocks to unbreakable blocks.
-    inverse-breakable-block: false
+    inverse-breakable-blocks: false
+    # breakable-blocks will only function if build is false.
     breakable-blocks:
       - "BEDROCK"
       - "END_PORTAL_FRAME"
-    # inverse-unplaceable-blocks sets the list of unplaceable blocks to placeable blocks.
-    inverse-unplaceable-blocks: false
-    unplaceable-blocks:
-      - "BEDROCK"
-    explosion-damage: false
-    block-burn: false
-    water-lava-flow-inside: true
-    ## prevents water and lava from flowing from the outside to the inside.
-    water-lava-flow-from-outside: false
-    # Block break timer allows players to place blocks, but removes blocks after the set amount of seconds.
-    block-break-timer: 30
+    # inverse-placeable-blocks sets the list of placeable blocks to un-placeable blocks.
+    inverse-placeable-blocks: false
+    placeable-blocks:
+      - "GRASS"
+    # Block break timer allows players to place any placeable blocks, but removes blocks after the set amount of seconds.
+    # players are also able to break any placed blocks from other players.
+    # NOTE: Block break timer will not work if build is true.
     block-break-timer-active: false
+    block-break-timer: 30
     # drop-block-item will drop the block item after block-break-timer brakes it when set to true.
     drop-block-item: false
     # block-break-timer-ignore are blocks that will be ignored by the block break timer.
@@ -80,6 +76,11 @@ master-default:
     block-break-timer-ignore:
       - "DIAMOND_BLOCK"
       - "NETHERITE_BLOCK"
+    explosion-damage: false
+    block-burn: false
+    water-lava-flow-inside: true
+    ## prevents water and lava from flowing from the outside to the inside.
+    water-lava-flow-from-outside: false
   mob-managers:
     monster-spawn: true
     friendly-mob-spawn: false
