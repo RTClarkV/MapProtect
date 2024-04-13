@@ -48,7 +48,8 @@ public class RegionBox implements Listener {
         regionHandlers.add(new PlayerPvP(plugin, this));
         regionHandlers.add(new PlayerInteractHandler(plugin, this));
         regionHandlers.add(new PotionEffectHandler(plugin, this));
-
+        regionHandlers.add(new PlayerHurtHandler(plugin, this));
+        regionHandlers.add(new UnusableItemsHandler(plugin, this));
         //block managers
         regionHandlers.add(new BlockBurnHandler(plugin, this));
         regionHandlers.add(new BlockHandler(plugin, this));

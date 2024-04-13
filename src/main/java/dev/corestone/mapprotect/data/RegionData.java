@@ -115,5 +115,8 @@ public class RegionData implements DataFile {
     public List<String> getStringArrayBlockData(String regionName, String dataPiece){
         return getConfig().getStringList("regions."+regionName+".block-managers."+dataPiece);
     }
+    public List<String> getStringArrayPlayerData(String regionName, String dataPiece){
+        return getConfig().getStringList("regions."+regionName+".player-managers."+dataPiece);
+    }
 
 }

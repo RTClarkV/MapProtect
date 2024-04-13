@@ -42,12 +42,11 @@ master-default:
     enable-potion-effects: false
     potion-effects:
       LUCK: 1
+    # unusable items prevents players from interacting blocks with these items.
     unusable-items:
-      - "ENDER_PEARL"
       - "LAVA_BUCKET"
   block-managers:
     # Build prevents players from placing or breaking blocks.
-    # TODO: make mp.build with a /build command.
     build: false
     # inverse-breakable-block sets the list of breakable blocks to unbreakable blocks.
     inverse-breakable-blocks: false
@@ -78,8 +77,8 @@ master-default:
     water-lava-flow-from-outside: false
   mob-managers:
     monster-spawn: true
-    friendly-mob-spawn: false
-    monster-block-break: false
+    friendly-mob-spawn: true
+    monster-grief: true
     # inverse-unspawnable-mobs will set the list of unspawnable mobs to spawnable mobs.
     inverse-unspawnable-mobs: false
     unspawnable-mobs:
