@@ -78,8 +78,8 @@ master-default:
     water-lava-flow-from-outside: false
   mob-managers:
     monster-spawn: true
-    friendly-mob-spawn: false
-    monster-block-break: false
+    friendly-mob-spawn: true
+    monster-grief: true
     # inverse-unspawnable-mobs will set the list of unspawnable mobs to spawnable mobs.
     inverse-unspawnable-mobs: false
     unspawnable-mobs:
