@@ -88,57 +88,58 @@ public class PlayerEntryExitHandler implements RegionHandler, Listener {
             if (region.getState() == RegionState.IDLE) return;
             //when player enters while entry is false.
             for (UUID uuid : playerLocations.keySet()) {
-                if (!entry && region.getBox().contains(Bukkit.getPlayer(uuid).getLocation().toVector()) && !region.getBox().contains(playerLocations.get(uuid).toVector())) {
-                    Bukkit.getPlayer(uuid).sendMessage(Colorize.format(entryDenyMessage));
+                Player player = Bukkit.getPlayer(uuid);
+                if (!entry && region.getBox().contains(player.getLocation().toVector()) && !region.getBox().contains(playerLocations.get(uuid).toVector())) {
+                    player.sendMessage(Colorize.format(entryDenyMessage));
                     //Bukkit.getPlayer(uuid).teleport(playerLocations.get(uuid));
                     if (playerLocations.get(uuid).getY() >= region.getBox().getMaxY()) {
                         scheduler.runTask(plugin, ()->{
-                            Bukkit.getPlayer(uuid).teleport(playerLocations.get(uuid));
+                            player.teleport(playerLocations.get(uuid));
                         });
                     }
-                    if (playDenySound) Bukkit.getPlayer(uuid).playSound(playerLocations.get(uuid), Sound.ENTITY_PHANTOM_FLAP, 1, 5);
-                    Vector vector = playerLocations.get(uuid).toVector().clone().subtract(Bukkit.getPlayer(uuid).getLocation().toVector());
+                    if (playDenySound) player.playSound(playerLocations.get(uuid), Sound.ENTITY_PHANTOM_FLAP, 1, 5);
+                    Vector vector = playerLocations.get(uuid).toVector().clone().subtract(player.getLocation().toVector());
                     vector.multiply(.4);
                     vector.setY(vector.clone().getY() + 0.2);
                     if (vector.getY() > 0.4) vector.setY(0.4);
-                    if(Objects.requireNonNull(Bukkit.getPlayer(uuid)).isInsideVehicle()) Bukkit.getPlayer(uuid).getVehicle().setVelocity(vector);
-                    Bukkit.getPlayer(uuid).setVelocity(vector);
+                    if(Objects.requireNonNull(player).isInsideVehicle()) player.getVehicle().setVelocity(vector);
+                    player.setVelocity(vector);
                     if(!failCounter.containsKey(uuid)) failCounter.put(uuid, 1);
                     if(failCounter.containsKey(uuid)) failCounter.replace(uuid, failCounter.get(uuid)+1);
                     return;
                 }
                 //when the player exits while exit is false.
-                if (!region.getBox().contains(Bukkit.getPlayer(uuid).getLocation().toVector()) && region.getBox().contains(playerLocations.get(uuid).toVector()) && !exit) {
-                    Bukkit.getPlayer(uuid).sendMessage(Colorize.format(exitDenyMessage));
+                if (!region.getBox().contains(player.getLocation().toVector()) && region.getBox().contains(playerLocations.get(uuid).toVector()) && !exit) {
+                    player.sendMessage(Colorize.format(exitDenyMessage));
                     if (playDenySound)
-                        Bukkit.getPlayer(uuid).playSound(playerLocations.get(uuid), Sound.ENTITY_PHANTOM_FLAP, 1, 5);
-                    Vector vector = playerLocations.get(uuid).toVector().clone().subtract(Bukkit.getPlayer(uuid).getLocation().toVector());
+                        player.playSound(playerLocations.get(uuid), Sound.ENTITY_PHANTOM_FLAP, 1, 5);
+                    Vector vector = playerLocations.get(uuid).toVector().clone().subtract(player.getLocation().toVector());
                     vector.multiply(.4);
                     vector.setY(vector.clone().getY() + 0.2);
                     if (vector.getY() > 0.4) vector.setY(0.4);
-                    if(Objects.requireNonNull(Bukkit.getPlayer(uuid)).isInsideVehicle()) Bukkit.getPlayer(uuid).getVehicle().setVelocity(vector);
-                    Bukkit.getPlayer(uuid).setVelocity(vector);
+                    if(Objects.requireNonNull(player).isInsideVehicle()) player.getVehicle().setVelocity(vector);
+                    player.setVelocity(vector);
                     if(!failCounter.containsKey(uuid)) failCounter.put(uuid, 1);
                     if(failCounter.containsKey(uuid)) failCounter.replace(uuid, failCounter.get(uuid)+1);
                     return;
                 }
-                if (entrySound != null && region.getBox().contains(Bukkit.getPlayer(uuid).getLocation().toVector()) && !region.getBox().contains(playerLocations.get(uuid).toVector())) {
-                    if (entryExitTitles) Bukkit.getPlayer(uuid).sendMessage(Colorize.format(entryGreeting));
-                    if (entryExitSounds) Bukkit.getPlayer(uuid).playSound(playerLocations.get(uuid), entrySound, 1, 1);
+                if (entrySound != null && region.getBox().contains(player.getLocation().toVector()) && !region.getBox().contains(playerLocations.get(uuid).toVector())) {
+                    if (entryExitTitles) player.sendMessage(Colorize.format(entryGreeting));
+                    if (entryExitSounds) player.playSound(playerLocations.get(uuid), entrySound, 1, 1);
                 }
-                if (exitSound != null && region.getBox().contains(playerLocations.get(uuid).toVector()) && !region.getBox().contains(Bukkit.getPlayer(uuid).getLocation().toVector())) {
-                    if (entryExitTitles) Bukkit.getPlayer(uuid).sendMessage(Colorize.format(exitFairwell));
-                    if (entryExitSounds) Bukkit.getPlayer(uuid).playSound(playerLocations.get(uuid), exitSound, 1, 1);
+                if (exitSound != null && region.getBox().contains(playerLocations.get(uuid).toVector()) && !region.getBox().contains(player.getLocation().toVector())) {
+                    if (entryExitTitles) player.sendMessage(Colorize.format(exitFairwell));
+                    if (entryExitSounds) player.playSound(playerLocations.get(uuid), exitSound, 1, 1);
                 }
-                if (region.getBox().contains(Bukkit.getPlayer(uuid).getLocation().toVector()) && !region.getPlayersInside().contains(uuid))
+                if (region.getBox().contains(player.getLocation().toVector()) && !region.getPlayersInside().contains(uuid))
                     scheduler.runTask(plugin, ()->{
                         region.addPlayer(uuid);
                     });
-                if (!region.getBox().contains(Bukkit.getPlayer(uuid).getLocation().toVector()) && region.getPlayersInside().contains(uuid))
+                if (!region.getBox().contains(player.getLocation().toVector()) && region.getPlayersInside().contains(uuid))
                     scheduler.runTask(plugin, ()->{
                         region.removePlayer(uuid);
                     });
-                playerLocations.replace(uuid, Bukkit.getPlayer(uuid).getLocation());
+                playerLocations.replace(uuid, player.getLocation());
             }
         }, 0L, 5L);
 

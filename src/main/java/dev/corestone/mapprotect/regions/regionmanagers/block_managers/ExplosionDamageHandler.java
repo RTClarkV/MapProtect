@@ -15,6 +15,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockExplodeEvent;
+import org.bukkit.event.entity.EntityDamageByBlockEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 
@@ -37,14 +39,12 @@ public class ExplosionDamageHandler implements RegionHandler, Listener {
 
     @EventHandler
     public void explosionDamageListenerEntity(EntityExplodeEvent event) {
-        Location explosionLocation = event.getEntity().getLocation();
-        World world = explosionLocation.getWorld();
         if (canExplode)return;
         if (region.getState() == RegionState.IDLE)return;
         for (Block explodedBlock : event.blockList()){
             if (region.getBox().contains(explodedBlock.getLocation().toVector())){
                 event.setCancelled(true);
-                world.playSound(explosionLocation, Sound.ENTITY_ARMOR_STAND_BREAK, 1.0f, 1.0f);
+                event.getLocation().getWorld().playSound(event.getLocation(), Sound.ENTITY_ARMOR_STAND_BREAK, 1.0f, 1.0f);
                 break;
             }
         }
@@ -52,31 +52,25 @@ public class ExplosionDamageHandler implements RegionHandler, Listener {
 
     @EventHandler
     public void explosionDamageListenerBlock(BlockExplodeEvent event) {
-        Location explosionLocation = event.getBlock().getLocation();
-        World world = explosionLocation.getWorld();
         if (canExplode)return;
         if (region.getState() == RegionState.IDLE)return;
         for (Block explodedBlock : event.blockList()){
             if (region.getBox().contains(explodedBlock.getLocation().toVector())){
                 event.setCancelled(true);
-                world.playSound(explosionLocation, Sound.ENTITY_ARMOR_STAND_BREAK, 1.0f, 1.0f);
+                event.getBlock().getLocation().getWorld().playSound(event.getBlock().getLocation(), Sound.ENTITY_ARMOR_STAND_BREAK, 1.0f, 1.0f);
                 break;
             }
         }
     }
 
     @EventHandler
-    public void explosionDamageListener(EntityDamageEvent event){
+    public void explosionDamageByEntityListener(EntityDamageEvent event){
         if (canExplode)return;
         if (region.getState() == RegionState.IDLE)return;
-        if (event.getCause() == EntityDamageEvent.DamageCause.BLOCK_EXPLOSION || event.getCause() == EntityDamageEvent.DamageCause.ENTITY_EXPLOSION) {
-            event.setCancelled(true);
-            if(event.getEntity() instanceof Player){
-                event.getEntity().sendMessage(Colorize.format(explosionDamageDenyMessage));
-            }
-        }
+        if (event.getCause() != EntityDamageEvent.DamageCause.ENTITY_EXPLOSION && event.getCause() != EntityDamageEvent.DamageCause.BLOCK_EXPLOSION)return;
+        if (!region.getBox().contains(event.getEntity().getLocation().toVector()))return;
+        event.setCancelled(true);
     }
-
 
     @Override
     public void delete() {
@@ -92,6 +86,4 @@ public class ExplosionDamageHandler implements RegionHandler, Listener {
     public void playerExit(UUID uuid) {
 
     }
-
-
 }

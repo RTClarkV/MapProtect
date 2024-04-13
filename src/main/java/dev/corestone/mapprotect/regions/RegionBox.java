@@ -3,8 +3,10 @@ package dev.corestone.mapprotect.regions;
 import dev.corestone.mapprotect.MapProtect;
 import dev.corestone.mapprotect.RegionManager;
 
+import dev.corestone.mapprotect.regions.regionmanagers.block_managers.BlockBurnHandler;
 import dev.corestone.mapprotect.regions.regionmanagers.block_managers.BlockHandler;
 import dev.corestone.mapprotect.regions.regionmanagers.block_managers.ExplosionDamageHandler;
+import dev.corestone.mapprotect.regions.regionmanagers.block_managers.WaterLavaFlowHandler;
 import dev.corestone.mapprotect.regions.regionmanagers.player_managers.*;
 import dev.corestone.mapprotect.regions.regionmanagers.RegionHandler;
 import org.bukkit.event.HandlerList;
@@ -39,13 +41,22 @@ public class RegionBox implements Listener {
         state = RegionState.valueOf(plugin.getRegionData().getConfig().getString("regions."+name+".map-master.map-state").toUpperCase());
 
         //create managers
+
+        //player managers
         regionHandlers.add(new PlayerFallDamageHandler(plugin, this));
         regionHandlers.add(new PlayerEntryExitHandler(plugin, this));
         regionHandlers.add(new PlayerPvP(plugin, this));
         regionHandlers.add(new PlayerInteractHandler(plugin, this));
-        regionHandlers.add(new ExplosionDamageHandler(plugin, this));
-        regionHandlers.add(new BlockHandler(plugin, this));
         regionHandlers.add(new PotionEffectHandler(plugin, this));
+
+        //block managers
+        regionHandlers.add(new BlockBurnHandler(plugin, this));
+        regionHandlers.add(new BlockHandler(plugin, this));
+        regionHandlers.add(new ExplosionDamageHandler(plugin, this));
+        regionHandlers.add(new WaterLavaFlowHandler(plugin, this));
+
+        //block managers
+
         //other logic
 
     }

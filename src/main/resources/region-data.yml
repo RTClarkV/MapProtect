@@ -2,10 +2,10 @@
 #
 #                               Welcome to MapProtect.
 #        For questions, help, bug reports, or features requests my Discord is CoreStone#4179
-#                           For command usage help, use /help
+#                           For MapProtect command help, use /mphelp
 #
-# Your protected areas are under the regions section bellow. You can edit the settings and reload the plugin with the command /mpreload.
-#
+# Your protected areas are under the regions section bellow. You can edit the settings, save, and reload the plugin with the command /mpreload.
+# To make a list of things empty, only leave one item in the list called "null." Do not leave the list completely empty, without any values in the list, it will be auto-filled by the defaults.
 #
 # Block types can be found at: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
 # Sound types can be found at: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html
