@@ -53,14 +53,14 @@ public class DefaultData implements DataFile {
         if(data.getConfig().getConfigurationSection("default-profiles") == null)return;
         for(String path : data.getConfig().getConfigurationSection("master-default").getKeys(true)){
             for(String defaultName : data.getConfig().getConfigurationSection("default-profiles").getKeys(false)){
-                if(!data.getConfig().contains("default-profiles."+defaultName+"."+path)){
+                if(!data.getConfig().contains("default-profiles."+defaultName+"."+path) && !path.contains("potion-effects")){
                     set("default-profiles."+defaultName+"."+path, data.getConfig().get("master-default."+path));
                 }
             }
         }
         for(String regionName : data.getConfig().getConfigurationSection("default-profiles").getKeys(false)){
             for(String regionPath : data.getConfig().getConfigurationSection("default-profiles."+regionName).getKeys(true)){
-                if(!data.getConfig().getConfigurationSection("master-default").contains(regionPath)){
+                if(!data.getConfig().getConfigurationSection("master-default").contains(regionPath) && !regionPath.contains("potion-effects")){
                     data.remove("default-profiles."+regionName+"."+regionPath);
                 }
             }

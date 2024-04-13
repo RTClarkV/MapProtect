@@ -5,6 +5,7 @@ import dev.corestone.mapprotect.regions.RegionBox;
 import dev.corestone.mapprotect.regions.RegionState;
 import dev.corestone.mapprotect.regions.regionmanagers.RegionHandler;
 import dev.corestone.mapprotect.utilities.Colorize;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
@@ -43,7 +44,6 @@ public class PlayerPvP implements RegionHandler, Listener {
 
     @Override
     public void playerEntry(UUID uuid) {
-
     }
 
     @Override

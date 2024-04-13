@@ -43,9 +43,12 @@ public class MapDeleteCommand implements CommandExecutor, TabExecutor {
         String name = args[0];
         if (command.getName().equalsIgnoreCase("mpremovemap")){
             manager.removeRegion(name);
+            sender.sendMessage(Colorize.format("&3Removing map &b" + name));
         }
         if(command.getName().equalsIgnoreCase("mpremovedefault")){
             manager.removeDefault(name);
+            sender.sendMessage(Colorize.format("&3Removing default &b" + name));
+
         }
         return true;
     }

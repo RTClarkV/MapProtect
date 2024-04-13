@@ -7,6 +7,7 @@ import dev.corestone.mapprotect.regions.RegionBox;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.BoundingBox;
 
 import java.lang.reflect.Array;
@@ -51,18 +52,18 @@ public class RegionData implements DataFile {
     @Override
     public void update(YamlConfiguration internalConfig){
         set("version", internalConfig.get("version"));
+        data.getConfig().setComments("regions", internalConfig.getComments("regions"));
         if(data.getConfig().getConfigurationSection("regions") == null)return;
-
         for(String path : plugin.getDefaultData().getConfig().getConfigurationSection("master-default").getKeys(true)){
             for(String regionName : data.getConfig().getConfigurationSection("regions").getKeys(false)){
-                if(!data.getConfig().contains("regions."+regionName+"."+path)){
+                if(!data.getConfig().contains("regions."+regionName+"."+path) && !path.contains("potion-effects")){
                     set("regions."+regionName+"."+path, plugin.getDefaultData().getConfig().get("master-default."+path));
                 }
             }
         }
         for(String regionName : data.getConfig().getConfigurationSection("regions").getKeys(false)){
               for(String regionPath : data.getConfig().getConfigurationSection("regions."+regionName).getKeys(true)){
-                  if(!plugin.getDefaultData().getConfig().getConfigurationSection("master-default").contains(regionPath)){
+                  if(!plugin.getDefaultData().getConfig().getConfigurationSection("master-default").contains(regionPath) && !regionPath.contains("potion-effects")){
                       data.remove("regions."+regionName+"."+regionPath);
                   }
               }
