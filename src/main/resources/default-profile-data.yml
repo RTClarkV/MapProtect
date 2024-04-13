@@ -7,11 +7,9 @@ version: 1.4-IN-DEV
   ##                       Permission for admins: mp.admin
   ##
   ##================================================================================
-  ##                                Map State
   ##--------------------------------------------------------------------------------
-  ## map-state can be in 5 states: ACTIVE, IDLE or LOCKED.
-  ## You can change the state in game with: /mpstate <map_name> <state>
-  ## You can check the state of a map with: /mpstate <map_name>
+  ## map-state can be in 3 states: ACTIVE, IDLE or LOCKED.
+  ## NOTE: the LOCKED state is currently not supported.
   ## ACTIVE state: the map will run as usual with the given parameters.
   ## IDLE state: the map will do nothing as if it was not there, so careful using this state.
   ## LOCKED state: Does not allow any player interactions, player entry, or block damage. Good for preventing further damage to an area quickly.
@@ -20,10 +18,8 @@ version: 1.4-IN-DEV
   # Sound types can be found at: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html
   # Item types can also be found at: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
   # Potion Effect types can be found at: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/potion/PotionEffectType.html
-
   ##
   ##--------------------------------------------------------------------------------
-  ##
 master-default:
   map-master:
     map-state: ACTIVE
@@ -40,8 +36,9 @@ master-default:
     # Pvp and damage.
     player-pvp: false
     player-fall-damage: true
+    player-hurt: true
     player-interact: true
-    player-hunger: true
+    # Potion Effect types can be found at: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/potion/PotionEffectType.html
     enable-potion-effects: false
     potion-effects:
       LUCK: 1
@@ -63,23 +60,21 @@ master-default:
     placeable-blocks:
       - "GRASS"
     # Block break timer allows players to place any placeable blocks, but removes blocks after the set amount of seconds.
-    # players are also able to break any placed blocks from other players.
-    # NOTE: Block break timer will not work if build is true.
+    # players are able to break any placed blocks from other players. Block break timer will not work if build is true.
     block-break-timer-active: false
     block-break-timer: 30
     # drop-block-item will drop the block item after block-break-timer brakes it when set to true.
     drop-block-item: false
     # block-break-timer-ignore are blocks that will be ignored by the block break timer.
-    # inverse-block-break-timer-ignore will set the list of blocks to ignore
-    # to only blocks the timer will break.
+    # inverse-block-break-timer-ignore will set the list of ignored blocks to only blocks the timer will break.
     inverse-block-break-timer-ignore: false
     block-break-timer-ignore:
       - "DIAMOND_BLOCK"
       - "NETHERITE_BLOCK"
-    explosion-damage: false
-    block-burn: false
-    water-lava-flow-inside: true
-    ## prevents water and lava from flowing from the outside to the inside.
+    explosion-damage: true
+    block-burn: true
+    water-lava-flow: true
+    # prevents water and lava from flowing from the outside to the inside.
     water-lava-flow-from-outside: false
   mob-managers:
     monster-spawn: true
