@@ -19,6 +19,7 @@ import org.bukkit.util.Vector;
 
 import java.awt.*;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.UUID;
 
 public class PlayerEntryExitHandler implements RegionHandler, Listener {
@@ -95,13 +96,12 @@ public class PlayerEntryExitHandler implements RegionHandler, Listener {
                             Bukkit.getPlayer(uuid).teleport(playerLocations.get(uuid));
                         });
                     }
-
-                    if (playDenySound)
-                        Bukkit.getPlayer(uuid).playSound(playerLocations.get(uuid), Sound.ENTITY_PHANTOM_FLAP, 1, 5);
+                    if (playDenySound) Bukkit.getPlayer(uuid).playSound(playerLocations.get(uuid), Sound.ENTITY_PHANTOM_FLAP, 1, 5);
                     Vector vector = playerLocations.get(uuid).toVector().clone().subtract(Bukkit.getPlayer(uuid).getLocation().toVector());
                     vector.multiply(.4);
                     vector.setY(vector.clone().getY() + 0.2);
                     if (vector.getY() > 0.4) vector.setY(0.4);
+                    if(Objects.requireNonNull(Bukkit.getPlayer(uuid)).isInsideVehicle()) Bukkit.getPlayer(uuid).getVehicle().setVelocity(vector);
                     Bukkit.getPlayer(uuid).setVelocity(vector);
                     if(!failCounter.containsKey(uuid)) failCounter.put(uuid, 1);
                     if(failCounter.containsKey(uuid)) failCounter.replace(uuid, failCounter.get(uuid)+1);
@@ -116,6 +116,7 @@ public class PlayerEntryExitHandler implements RegionHandler, Listener {
                     vector.multiply(.4);
                     vector.setY(vector.clone().getY() + 0.2);
                     if (vector.getY() > 0.4) vector.setY(0.4);
+                    if(Objects.requireNonNull(Bukkit.getPlayer(uuid)).isInsideVehicle()) Bukkit.getPlayer(uuid).getVehicle().setVelocity(vector);
                     Bukkit.getPlayer(uuid).setVelocity(vector);
                     if(!failCounter.containsKey(uuid)) failCounter.put(uuid, 1);
                     if(failCounter.containsKey(uuid)) failCounter.replace(uuid, failCounter.get(uuid)+1);
@@ -130,9 +131,13 @@ public class PlayerEntryExitHandler implements RegionHandler, Listener {
                     if (entryExitSounds) Bukkit.getPlayer(uuid).playSound(playerLocations.get(uuid), exitSound, 1, 1);
                 }
                 if (region.getBox().contains(Bukkit.getPlayer(uuid).getLocation().toVector()) && !region.getPlayersInside().contains(uuid))
-                    region.addPlayer(uuid);
-                if (!region.getBox().contains(Bukkit.getPlayer(uuid).getLocation().toVector()))
-                    region.removePlayer(uuid);
+                    scheduler.runTask(plugin, ()->{
+                        region.addPlayer(uuid);
+                    });
+                if (!region.getBox().contains(Bukkit.getPlayer(uuid).getLocation().toVector()) && region.getPlayersInside().contains(uuid))
+                    scheduler.runTask(plugin, ()->{
+                        region.removePlayer(uuid);
+                    });
                 playerLocations.replace(uuid, Bukkit.getPlayer(uuid).getLocation());
             }
         }, 0L, 5L);
@@ -143,7 +148,7 @@ public class PlayerEntryExitHandler implements RegionHandler, Listener {
             }
             if (region.getState() == RegionState.IDLE) return;
             for(UUID uuid : failCounter.keySet()){
-                if(failCounter.get(uuid) > 2){
+                if(failCounter.get(uuid) > 3){
                     scheduler.runTask(plugin, ()->{
                         Bukkit.getPlayer(uuid).teleport(playerLocations.get(uuid));
                     });
@@ -227,12 +232,10 @@ public class PlayerEntryExitHandler implements RegionHandler, Listener {
 
     @Override
     public void playerEntry(UUID uuid) {
-
     }
 
     @Override
     public void playerExit(UUID uuid) {
-
     }
 
 

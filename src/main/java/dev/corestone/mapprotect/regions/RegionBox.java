@@ -4,9 +4,9 @@ import dev.corestone.mapprotect.MapProtect;
 import dev.corestone.mapprotect.RegionManager;
 
 import dev.corestone.mapprotect.regions.regionmanagers.block_managers.BlockHandler;
+import dev.corestone.mapprotect.regions.regionmanagers.block_managers.ExplosionDamageHandler;
 import dev.corestone.mapprotect.regions.regionmanagers.player_managers.*;
 import dev.corestone.mapprotect.regions.regionmanagers.RegionHandler;
-import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitScheduler;
@@ -45,6 +45,7 @@ public class RegionBox implements Listener {
         regionHandlers.add(new PlayerInteractHandler(plugin, this));
         regionHandlers.add(new ExplosionDamageHandler(plugin, this));
         regionHandlers.add(new BlockHandler(plugin, this));
+        regionHandlers.add(new PotionEffectHandler(plugin, this));
         //other logic
 
     }

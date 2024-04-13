@@ -19,7 +19,7 @@ version: 1.4-IN-DEV
   # Block types can be found at: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
   # Sound types can be found at: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html
   # Item types can also be found at: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
-  # Potion Effect types can be found at: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/potion/PotionEffectType.html#ABSORPTION
+  # Potion Effect types can be found at: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/potion/PotionEffectType.html
 
   ##
   ##--------------------------------------------------------------------------------
@@ -40,9 +40,9 @@ master-default:
     # Pvp and damage.
     player-pvp: false
     player-fall-damage: true
-    #
     player-interact: true
     player-hunger: true
+    enable-potion-effects: false
     potion-effects:
       LUCK: 1
     unusable-items:

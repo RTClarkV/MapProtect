@@ -1,4 +1,4 @@
-package dev.corestone.mapprotect.regions.regionmanagers.player_managers;
+package dev.corestone.mapprotect.regions.regionmanagers.block_managers;
 
 import dev.corestone.mapprotect.MapProtect;
 import dev.corestone.mapprotect.regions.RegionBox;

@@ -1,7 +1,18 @@
+##========================================================================
+#
+#                               Welcome to MapProtect.
+#        For questions, help, bug reports, or features requests my Discord is CoreStone#4179
+#                           For command usage help, use /help
+#
+# Your protected areas are under the regions section bellow. You can edit the settings and reload the plugin with the command /mpreload.
+#
+#
+# Block types can be found at: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
+# Sound types can be found at: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html
+# Item types can also be found at: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
+# Potion Effect types can be found at: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/potion/PotionEffectType.html
+##========================================================================
 version: 1.1-IN-DEV
-##========================================================================
-##     Please read the documentation in default-profiles-data.yml
-##========================================================================
 regions:
 
 
