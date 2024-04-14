@@ -4,8 +4,11 @@ import dev.corestone.mapprotect.MapProtect;
 import dev.corestone.mapprotect.regions.RegionBox;
 import dev.corestone.mapprotect.regions.RegionState;
 import dev.corestone.mapprotect.regions.regionmanagers.RegionHandler;
+import dev.corestone.mapprotect.utilities.BroadcastSound;
 import dev.corestone.mapprotect.utilities.Colorize;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
@@ -16,6 +19,7 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.scheduler.BukkitScheduler;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.UUID;
 
 public class BlockHandler implements Listener, RegionHandler {
@@ -80,6 +84,10 @@ public class BlockHandler implements Listener, RegionHandler {
         if(build)return;
         if(region.getState() == RegionState.IDLE)return;
         if(!region.getBox().contains(e.getBlock().getLocation().toVector()))return;
+        if(blockBreakTimerTrack.contains(e.getBlock())){
+            blockBreakTimerTrack.remove(e.getBlock());
+            return;
+        }
         if(e.getPlayer().hasPermission("mp.admin"))return;
         if(blockBreakTimerActive && blockBreakTimerTrack.contains(e.getBlock())){
             blockBreakTimerTrack.remove(e.getBlock());
@@ -98,7 +106,8 @@ public class BlockHandler implements Listener, RegionHandler {
         if(!region.getBox().contains(e.getBlockPlaced().getLocation().toVector()))return;
         if(e.getPlayer().hasPermission("mp.admin"))return;
         if(blockBreakTimerActive && placeableBlocks.contains(e.getBlock().getType()) && !blockBreakIgnore.contains(e.getBlockPlaced().getType())){
-            blockBreakTimer(e.getBlockPlaced());
+            blockBreakTimerTrack.add(e.getBlockPlaced());
+            blockBreakTimer(e.getBlockPlaced(), 20*blockBreakTimer);
             return;
         }
         if(!placeableBlocks.contains(e.getBlockPlaced().getType())){
@@ -107,24 +116,25 @@ public class BlockHandler implements Listener, RegionHandler {
             return;
         }
     }
-    private void blockBreakTimer(Block block){
-        blockBreakTimerTrack.add(block);
-        scheduler.runTaskLater(plugin, ()->{
+    private void blockBreakTimer(Block block, float ticks){
             if(!blockBreakTimerTrack.contains(block))return;
-            blockBreakTimerTrack.remove(block);
-            if(dropBlockItem) block.breakNaturally();
-            if(!dropBlockItem) block.setType(Material.AIR);
-            //BroadcastSound.playSound(block.getLocation(), Sound.BLOCK_STONE_BREAK, 1 ,1);
-        }, 20L * blockBreakTimer);
+            if(ticks < 1){
+                blockBreakTimerTrack.remove(block);
+                if(dropBlockItem) block.breakNaturally();
+                if(!dropBlockItem) block.setType(Material.AIR);
+                block.getWorld().playSound(block.getLocation(), Sound.BLOCK_STONE_BREAK, 1, 1);
+            }
+            scheduler.runTaskLater(plugin, ()->{
+                blockBreakTimer(block, ticks-1);
+            }, 1L);
     }
     @Override
     public void delete() {
-        for(Block block : blockBreakTimerTrack){
-            if(!blockBreakTimerTrack.contains(block))return;
-            if(dropBlockItem) block.breakNaturally();
-            if(!dropBlockItem) block.setType(Material.AIR);
-            blockBreakTimerTrack.remove(block);
-        }
+            for(Block block : blockBreakTimerTrack){
+                if(dropBlockItem) block.breakNaturally();
+                if(!dropBlockItem) block.setType(Material.AIR);
+            }
+            blockBreakTimerTrack.clear();
         HandlerList.unregisterAll(this);
     }
     @Override

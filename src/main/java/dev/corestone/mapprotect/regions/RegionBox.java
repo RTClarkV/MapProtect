@@ -7,6 +7,8 @@ import dev.corestone.mapprotect.regions.regionmanagers.block_managers.BlockBurnH
 import dev.corestone.mapprotect.regions.regionmanagers.block_managers.BlockHandler;
 import dev.corestone.mapprotect.regions.regionmanagers.block_managers.ExplosionDamageHandler;
 import dev.corestone.mapprotect.regions.regionmanagers.block_managers.WaterLavaFlowHandler;
+import dev.corestone.mapprotect.regions.regionmanagers.mob_managers.MobGriefHandler;
+import dev.corestone.mapprotect.regions.regionmanagers.mob_managers.MobSpawnManager;
 import dev.corestone.mapprotect.regions.regionmanagers.player_managers.*;
 import dev.corestone.mapprotect.regions.regionmanagers.RegionHandler;
 import org.bukkit.event.HandlerList;
@@ -50,14 +52,17 @@ public class RegionBox implements Listener {
         regionHandlers.add(new PotionEffectHandler(plugin, this));
         regionHandlers.add(new PlayerHurtHandler(plugin, this));
         regionHandlers.add(new UnusableItemsHandler(plugin, this));
+        regionHandlers.add(new MapGameModeHandler(plugin, this));
+
         //block managers
         regionHandlers.add(new BlockBurnHandler(plugin, this));
         regionHandlers.add(new BlockHandler(plugin, this));
         regionHandlers.add(new ExplosionDamageHandler(plugin, this));
         regionHandlers.add(new WaterLavaFlowHandler(plugin, this));
 
-        //block managers
-
+        //mob managers
+        regionHandlers.add(new MobSpawnManager(plugin, this));
+        regionHandlers.add(new MobGriefHandler(plugin, this));
         //other logic
 
     }
