@@ -7,7 +7,7 @@ play-entry-exit-deny-sound: true
 player-pvp-deny: "&cPvP is disabled in this region!"
 player-interact-deny: "&cYou cannot interact in this area!"
 
-player-build-deny: "&cYou cannot build or place blocks in this area."
+player-build-deny: "&cYour building permissions are limited here."
 player-item-use-deny: "&cYou cannot use that item here."
 explosion-damage-deny: "&2Phew! You did not take any explosion damage."
 

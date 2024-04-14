@@ -23,6 +23,9 @@ version: 1.4-IN-DEV
 master-default:
   map-master:
     map-state: ACTIVE
+    # toggle game mode will not switch the player's game mode upon entry or exit.
+    toggle-game-mode: false
+    game-mode: SURVIVAL
     entry-exit-titles: true
     entry-title: "&aWelcome!"
     exit-title: "&bGoodbye."
@@ -76,6 +79,7 @@ master-default:
     # prevents water and lava from flowing from the outside to the inside.
     water-lava-flow-from-outside: false
   mob-managers:
+    mob-spawn: true
     monster-spawn: true
     friendly-mob-spawn: true
     monster-grief: true
