@@ -4,6 +4,7 @@ import dev.corestone.mapprotect.MapProtect;
 import dev.corestone.mapprotect.regions.RegionBox;
 import dev.corestone.mapprotect.regions.RegionState;
 import dev.corestone.mapprotect.regions.regionmanagers.RegionHandler;
+import dev.corestone.mapprotect.utilities.Colorize;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
@@ -25,6 +26,11 @@ public class PotionEffectHandler implements RegionHandler {
         this.scheduler = plugin.getServer().getScheduler();
         this.potionEffectsAllowed = (boolean) plugin.getRegionData().getPlayerData(region.getName(), "enable-potion-effects");
         for(String effect : plugin.getRegionData().getConfig().getConfigurationSection("regions."+region.getName()+".player-managers.potion-effects").getKeys(false)){
+            if(PotionEffectType.getByName(effect.toUpperCase()) == null){
+                plugin.getServer().getConsoleSender().sendMessage(Colorize.format("&b&lMapProtect &4&lError! &cYou must have a correct potion effect in map " + region.getName()) + "&c. "+ effect + " is not a valid potion effect.");
+                plugin.getServer().getConsoleSender().sendMessage(Colorize.format("&cFor correct potion effect types, visit: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/potion/PotionEffectType.html"));
+                break;
+            }
             potionEffects.put(PotionEffectType.getByName(effect.toUpperCase()), plugin.getRegionData().getConfig().getInt("regions."+region.getName()+".player-managers.potion-effects."+effect));
         }
         potionChecker();
@@ -43,7 +49,7 @@ public class PotionEffectHandler implements RegionHandler {
     }
     public void addPotionEffects(Player player){
         for(PotionEffectType potionEffectType : potionEffects.keySet()){
-            player.addPotionEffect(potionEffectType.createEffect(250920, potionEffects.get(potionEffectType)));
+            player.addPotionEffect(potionEffectType.createEffect(420, potionEffects.get(potionEffectType)));
         }
     }
     public void clearPotionEffects(Player player){
@@ -64,6 +70,7 @@ public class PotionEffectHandler implements RegionHandler {
 
     @Override
     public void playerExit(UUID uuid) {
+        if(!potionEffectsAllowed)return;
         clearPotionEffects(Bukkit.getPlayer(uuid));
     }
 }

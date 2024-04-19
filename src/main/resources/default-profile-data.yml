@@ -1,4 +1,4 @@
-version: 1.4-IN-DEV
+version: 1.1-beta
   ##================================================================================
   ##
   ##                        DO NOT delete Master Default.
@@ -45,11 +45,11 @@ master-default:
     enable-potion-effects: false
     potion-effects:
       LUCK: 1
-    # unusable items prevents players from interacting blocks with these items.
+    # unusable items prevents players from interacting with these items.
     unusable-items:
-      - "LAVA_BUCKET"
+      - "BEDROCK"
   block-managers:
-    # Build prevents players from placing or breaking blocks.
+    # Build prevents players from placing or breaking blocks, unless block break timer is on.
     build: false
     # inverse-breakable-block sets the list of breakable blocks to unbreakable blocks.
     inverse-breakable-blocks: false

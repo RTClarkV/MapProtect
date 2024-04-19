@@ -20,8 +20,8 @@ public class CreateNewDefaultCommand implements CommandExecutor, TabCompleter {
 
     public CreateNewDefaultCommand(MapProtect plugin){
         this.plugin = plugin;
-        plugin.getCommand("mpcreatedefault").setExecutor(this);
-        plugin.getCommand("mpcreatedefault").setTabCompleter(this);
+        plugin.getCommand("mpsetdefault").setExecutor(this);
+        plugin.getCommand("mpsetdefault").setTabCompleter(this);
     }
 
 

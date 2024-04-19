@@ -1,4 +1,4 @@
-version: 1.2-IN-DEV
+version: 1.1-beta
 ##
 player-entry-deny: "&cYou cannot enter this area!"
 player-exit-deny: "&cYou cannot exit this area!"

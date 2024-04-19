@@ -17,14 +17,13 @@ public class MapListCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if(!(sender instanceof Player))return true;
 
-        Player player = (Player) sender;
-        player.sendMessage(Colorize.format("&cMapProtect areas:"));
+        sender.sendMessage(Colorize.format("&b-----MapProtect areas-----"));
         if(plugin.getRegionData() == null)return true;
         for(String mapName : plugin.getRegionData().getRegionList()){
-            player.sendMessage(Colorize.format("&3"+mapName));
+            sender.sendMessage(Colorize.format("&3"+mapName));
         }
+        sender.sendMessage(Colorize.format("&b---------------------------"));
         return true;
     }
 }
