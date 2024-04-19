@@ -32,11 +32,8 @@ public class DefaultData implements DataFile {
 
     @Override
     public void update(YamlConfiguration internalConfig){
-
+        data.set("version", internalConfig.get("version"));
         for(String path : internalConfig.getKeys(false)){
-            if(path.equals("version")) {
-                set(path, DataBook.version);
-            }
             if(path.equals("master-default")){
                 for(String manager : internalConfig.getConfigurationSection("master-default").getKeys(false)){
                  for(String setting : internalConfig.getConfigurationSection("master-default."+manager).getKeys(false)){

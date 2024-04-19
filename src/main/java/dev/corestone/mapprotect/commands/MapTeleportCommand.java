@@ -34,17 +34,17 @@ public class MapTeleportCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
-        if(!(sender instanceof Player))return true;
-        Player player = (Player) sender;
         ArrayList<String> argsList = new ArrayList<>();
         for(int j = 0; args.length > j; j++){
             argsList.add(args[j]);
         }
         if(argsList.isEmpty()){
-            player.sendMessage(Colorize.format(PlayerMessage.noArgs));
+            sender.sendMessage(Colorize.format(PlayerMessage.noArgs));
             return true;
         }
         if(command.getName().equalsIgnoreCase("mpteleport") || command.getName().equalsIgnoreCase("mptp")){
+            if(!(sender instanceof Player))return true;
+            Player player = (Player)sender;
             String mapName = args[0];
             if(!plugin.getRegionData().getRegionList().contains(mapName)){
                 player.sendMessage(Colorize.format(PlayerMessage.noArgs));
@@ -55,31 +55,33 @@ public class MapTeleportCommand implements CommandExecutor, TabCompleter {
         }
         if(command.getName().equalsIgnoreCase("mpteleportplayer")){
             if(argsList.size() != 2){
-                player.sendMessage(Colorize.format(PlayerMessage.noArgs));
+                sender.sendMessage(Colorize.format(PlayerMessage.noArgs));
                 return true;
             }
             String playerTP = args[0];
             String mapName = args[1];
             if(!plugin.getRegionData().getRegionList().contains(mapName)){
-                player.sendMessage(Colorize.format(PlayerMessage.noArgs));
+                sender.sendMessage(Colorize.format(PlayerMessage.noArgs));
                 return true;
             }
             if(playerTP.equalsIgnoreCase("@a")){
                 for(Player player1 : Bukkit.getOnlinePlayers()){
                     player1.teleport(plugin.getLocationData().getMapSpawn(mapName));
                 }
-                player.sendMessage(Colorize.format("&3Teleproting everyone to &b" + mapName+"&3."));
+                sender.sendMessage(Colorize.format("&3Teleproting everyone to &b" + mapName+"&3."));
                 return true;
             }
             if(!Bukkit.getOnlinePlayers().contains(Bukkit.getPlayer(playerTP))){
-                player.sendMessage(Colorize.format(PlayerMessage.noArgs));
+                sender.sendMessage(Colorize.format(PlayerMessage.noArgs));
                 return true;
             }
 
             Bukkit.getPlayer(playerTP).teleport(plugin.getLocationData().getMapSpawn(mapName));
-            player.sendMessage(Colorize.format("&3Teleproting &b" + playerTP + "&3 to &b" + mapName + "&3."));
+            sender.sendMessage(Colorize.format("&3Teleproting &b" + playerTP + "&3 to &b" + mapName + "&3."));
         }
         if(command.getName().equalsIgnoreCase("mpsetmapspawn") || command.getName().equalsIgnoreCase("mpsetspawn")){
+            if(!(sender instanceof Player))return true;
+            Player player = (Player) sender;
             String mapName = args[0];
             if(argsList.size() != 1){
                 player.sendMessage(Colorize.format(PlayerMessage.noArgs));

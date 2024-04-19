@@ -33,6 +33,17 @@ public class UnusableItemsHandler implements Listener, RegionHandler {
         if(region.getState()  == RegionState.IDLE)return;
         if(event.getItem() == null)return;
         if(!unusableItems.contains(event.getItem().getType()))return;
+        if(event.getClickedBlock() != null && region.getBox().contains(event.getClickedBlock().getLocation().toVector())){
+            event.setCancelled(true);
+            event.getPlayer().sendMessage(Colorize.format(denyMessage));
+            return;
+        }
+        if(event.getInteractionPoint() != null && region.getBox().contains(event.getInteractionPoint().toVector())){
+            event.setCancelled(true);
+            event.getPlayer().sendMessage(Colorize.format(denyMessage));
+            return;
+        }
+        if(!region.getBox().contains(event.getPlayer().getLocation().toVector()))return;
         event.setCancelled(true);
         event.getPlayer().sendMessage(Colorize.format(denyMessage));
     }

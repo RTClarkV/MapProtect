@@ -47,6 +47,7 @@ public class LocationData implements DataFile {
 
     @Override
     public void update(YamlConfiguration internalConfig){
+        data.set("version", internalConfig.get("version"));
     }
 
 

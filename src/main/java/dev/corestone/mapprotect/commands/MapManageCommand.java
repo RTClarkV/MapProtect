@@ -16,7 +16,7 @@ import java.util.List;
 
 public class MapManageCommand implements CommandExecutor, TabCompleter {
     MapProtect plugin;
-
+    //this class does nothing rn.
     public MapManageCommand(MapProtect plugin){
         this.plugin = plugin;
 //        this.plugin.getCommand("mpremovemap").setExecutor(this);

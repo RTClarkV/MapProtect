@@ -19,21 +19,19 @@ public class HelpCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if(!(sender instanceof Player))return true;
 
-        Player player = (Player)sender;
-        player.sendMessage(Colorize.format(PlayerMessage.commandUsage));
-        player.sendMessage("");
-        player.sendMessage(Colorize.format(PlayerMessage.mpWandUsage));
-        player.sendMessage(Colorize.format(PlayerMessage.mpReload));
-        player.sendMessage(Colorize.format(PlayerMessage.mpCreateCmdUsage));
-        player.sendMessage(Colorize.format(PlayerMessage.mpRemoveMapUsage));
-        player.sendMessage(Colorize.format(PlayerMessage.mpCreateDefault));
-        player.sendMessage(Colorize.format(PlayerMessage.mpRemoveDefault));
-        player.sendMessage(Colorize.format(PlayerMessage.mpTeleportPlayer));
-        player.sendMessage(Colorize.format(PlayerMessage.mpTeleport));
-        player.sendMessage(Colorize.format(PlayerMessage.mpSetMapSpawn));
-        player.sendMessage("");
+        sender.sendMessage(Colorize.format(PlayerMessage.commandUsage));
+        sender.sendMessage("");
+        sender.sendMessage(Colorize.format(PlayerMessage.mpWandUsage));
+        sender.sendMessage(Colorize.format(PlayerMessage.mpReload));
+        sender.sendMessage(Colorize.format(PlayerMessage.mpCreateCmdUsage));
+        sender.sendMessage(Colorize.format(PlayerMessage.mpRemoveMapUsage));
+        sender.sendMessage(Colorize.format(PlayerMessage.mpCreateDefault));
+        sender.sendMessage(Colorize.format(PlayerMessage.mpRemoveDefault));
+        sender.sendMessage(Colorize.format(PlayerMessage.mpTeleportPlayer));
+        sender.sendMessage(Colorize.format(PlayerMessage.mpTeleport));
+        sender.sendMessage(Colorize.format(PlayerMessage.mpSetMapSpawn));
+        sender.sendMessage("");
 
         return true;
     }
