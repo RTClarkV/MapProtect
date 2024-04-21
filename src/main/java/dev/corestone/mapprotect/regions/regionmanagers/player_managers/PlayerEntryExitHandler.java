@@ -76,9 +76,7 @@ public class PlayerEntryExitHandler implements RegionHandler, Listener {
                 region.addPlayer(player.getUniqueId());
             }
         }
-        if(!exit || !entry || entryExitTitles || entryExitSounds){
-            runTasks();
-        }
+        runTasks();
     }
     public void runTasks() {
         scheduler.runTaskTimerAsynchronously(plugin, (task) -> {
