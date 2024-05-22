@@ -27,7 +27,7 @@ public class PotionEffectHandler implements RegionHandler {
         this.potionEffectsAllowed = (boolean) plugin.getRegionData().getPlayerData(region.getName(), "enable-potion-effects");
         for(String effect : plugin.getRegionData().getConfig().getConfigurationSection("regions."+region.getName()+".player-managers.potion-effects").getKeys(false)){
             if(PotionEffectType.getByName(effect.toUpperCase()) == null){
-                plugin.getServer().getConsoleSender().sendMessage(Colorize.format("&b&lMapProtect &4&lError! &cYou must have a correct potion effect in map " + region.getName()) + "&c. "+ effect + " is not a valid potion effect.");
+                plugin.getServer().getConsoleSender().sendMessage(Colorize.format("&b&lMapProtect &4&lError! &cYou must have an incorrect potion effect in map " + region.getName()) + "&c. "+ effect + " is not a valid potion effect.");
                 plugin.getServer().getConsoleSender().sendMessage(Colorize.format("&cFor correct potion effect types, visit: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/potion/PotionEffectType.html"));
                 break;
             }
