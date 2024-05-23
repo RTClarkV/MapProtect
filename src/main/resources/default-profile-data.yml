@@ -23,7 +23,7 @@ version: 1.1-beta
 master-default:
   map-master:
     map-state: ACTIVE
-    # toggle game mode will not switch the player's game mode upon entry or exit.
+    # toggle game mode will not switch the player's game mode upon entry or exit. It is buggy, do not recommend using.
     toggle-game-mode: false
     game-mode: SURVIVAL
     entry-exit-titles: true
@@ -36,6 +36,8 @@ master-default:
     # Entry and Exit handlers
     player-entry: true
     player-exit: true
+    # respawn-player-inside will respawn the player at the region's spawn if they die inside and their spawn is outside.
+    respawn-player-inside: false
     # Pvp and damage.
     player-pvp: false
     player-fall-damage: true

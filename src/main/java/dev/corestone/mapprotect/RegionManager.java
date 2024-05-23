@@ -32,6 +32,8 @@ public class RegionManager {
 
     public void createNewRegion(String name, String defaultProfile, Location loc1, Location loc2){
         plugin.getRegionData().addRegion(name, defaultProfile);
+        if(loc1.getX() > loc2.getX()) loc1.setX(loc1.getX()+1); //the East side of the map will be 1 block short without the +1.
+        if(loc2.getX() > loc1.getX()) loc2.setX(loc2.getX()+1);
         plugin.getLocationData().addBox(name, loc1, loc2);
         regions.add(new RegionBox(plugin, this, name));
     }

@@ -11,6 +11,9 @@ import dev.corestone.mapprotect.regions.regionmanagers.mob_managers.MobGriefHand
 import dev.corestone.mapprotect.regions.regionmanagers.mob_managers.MobSpawnManager;
 import dev.corestone.mapprotect.regions.regionmanagers.player_managers.*;
 import dev.corestone.mapprotect.regions.regionmanagers.RegionHandler;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitScheduler;
@@ -28,6 +31,7 @@ public class RegionBox implements Listener {
     private RegionState state;
 
     private String name;
+    private Location spawnLoaction;
     private BukkitScheduler scheduler;
     private ArrayList<RegionHandler> regionHandlers = new ArrayList<>();
     private ArrayList<UUID> playersInside = new ArrayList<>();
@@ -41,7 +45,7 @@ public class RegionBox implements Listener {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         this.box = plugin.getLocationData().getBox(name);
         state = RegionState.valueOf(plugin.getRegionData().getConfig().getString("regions."+name+".map-master.map-state").toUpperCase());
-
+        this.spawnLoaction = plugin.getLocationData().getMapSpawn(name);
         //create managers
 
         //player managers
@@ -64,7 +68,11 @@ public class RegionBox implements Listener {
         regionHandlers.add(new MobSpawnManager(plugin, this));
         regionHandlers.add(new MobGriefHandler(plugin, this));
         //other logic
-
+        for(Player player : Bukkit.getOnlinePlayers()){
+            if(box.contains(player.getLocation().toVector())){
+                addPlayer(player.getUniqueId());
+            }
+        }
     }
     public void addPlayer(UUID uuid){
         playersInside.add(uuid);
@@ -98,11 +106,15 @@ public class RegionBox implements Listener {
                     break;
             }
     }
+    public Location getSpawnLoaction(){
+        return spawnLoaction;
+    }
 
     public void shutDown() {
         HandlerList.unregisterAll(this);
         setState(RegionState.DELETED);
     }
+
 
     public RegionState getState() {
         return state;
