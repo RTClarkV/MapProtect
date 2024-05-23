@@ -41,6 +41,8 @@ public class PlayerEntryExitHandler implements RegionHandler, Listener {
     private boolean entryExitSounds;
     private boolean entryExitTitles;
     private boolean playDenySound;
+    private boolean respawnInsideOnDeath;
+
 
     public PlayerEntryExitHandler(MapProtect plugin, RegionBox regionBox){
         this.region = regionBox;
@@ -60,6 +62,8 @@ public class PlayerEntryExitHandler implements RegionHandler, Listener {
         this.exitFairwell = (String) plugin.getRegionData().getMasterData(region.getName(), "exit-title");
 
         this.playDenySound = (boolean) plugin.getLanguageData().getConfig().getBoolean("play-entry-exit-deny-sound");
+
+        this.respawnInsideOnDeath = (boolean)plugin.getRegionData().getPlayerData(region.getName(), "respawn-player-inside");
 
         if(plugin.getRegionData().getMasterData(region.getName(), "entry-sound") != null){
             this.entrySound = (Sound) Sound.valueOf(((String) plugin.getRegionData().getMasterData(region.getName(), "entry-sound")).toUpperCase());
@@ -109,7 +113,7 @@ public class PlayerEntryExitHandler implements RegionHandler, Listener {
                     return;
                 }
                 //when the player exits while exit is false.
-                if (!region.getBox().contains(player.getLocation().toVector()) && region.getBox().contains(playerLocations.get(uuid).toVector()) && !exit) {
+                if (region.getPlayersInside().contains(uuid) && !region.getBox().contains(player.getLocation().toVector()) && region.getBox().contains(playerLocations.get(uuid).toVector()) && !exit) {
                     player.sendMessage(Colorize.format(exitDenyMessage));
                     if (playDenySound)
                         player.playSound(playerLocations.get(uuid), Sound.ENTITY_PHANTOM_FLAP, 1, 5);
@@ -203,6 +207,18 @@ public class PlayerEntryExitHandler implements RegionHandler, Listener {
         if(!exit && !region.getBox().contains(e.getTo().toVector()) && region.getPlayersInside().contains(e.getPlayer().getUniqueId())){
             e.setCancelled(true);
         }
+    }
+    @EventHandler
+    public void playerRespawnEvent(PlayerRespawnEvent event){
+        if(respawnInsideOnDeath && region.getPlayersInside().contains(event.getPlayer().getUniqueId())){
+            if(region.getBox().contains(event.getRespawnLocation().toVector()))return;
+            event.setRespawnLocation(region.getSpawnLoaction());
+        }
+        if(!respawnInsideOnDeath){
+            if(region.getBox().contains(event.getRespawnLocation().toVector()))return;
+            playerLocations.put(event.getPlayer().getUniqueId(), event.getRespawnLocation());
+        }
+
     }
     @EventHandler
     public void onInteract(PlayerInteractEvent e){

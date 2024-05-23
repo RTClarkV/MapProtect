@@ -24,7 +24,10 @@ public class ReloadCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         sender.sendMessage(Colorize.format("&cReloading &3Map&bProtect&c."));
+        double time = System.currentTimeMillis();
         plugin.reloadPlugin();
+        time = System.currentTimeMillis()- time;
+        sender.sendMessage(Colorize.format("&3Map&bProtect &creload complete. Time: " + time + "ms."));
         return true;
     }
 }
